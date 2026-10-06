@@ -1,0 +1,82 @@
+{
+ "plain": [
+  {
+   "corner": "tt_1.2V_25C",
+   "threshold_v": 0.76875,
+   "settled_v": 0.388719616,
+   "margin_v": 0.38003038400000005,
+   "refresh_us": 990.9878877729353
+  },
+  {
+   "corner": "ss_1.08V_125C",
+   "threshold_v": 0.725625,
+   "settled_v": 0.35949741,
+   "margin_v": 0.36612758999999995,
+   "refresh_us": 35.34892323344135
+  }
+ ],
+ "mr0.5": [
+  {
+   "corner": "tt_1.2V_25C",
+   "threshold_v": 0.6937500000000001,
+   "settled_v": 0.411627466,
+   "margin_v": 0.2821225340000001,
+   "refresh_us": null
+  },
+  {
+   "corner": "ss_1.08V_125C",
+   "threshold_v": 0.6581250000000001,
+   "settled_v": 0.38487478,
+   "margin_v": 0.27325022000000004,
+   "refresh_us": 52.48898209440584
+  }
+ ],
+ "default": [
+  {
+   "corner": "tt_1.2V_25C",
+   "threshold_v": 0.73125,
+   "settled_v": 0.43037307,
+   "margin_v": 0.30087692999999993,
+   "refresh_us": null
+  },
+  {
+   "corner": "ss_1.08V_125C",
+   "threshold_v": 0.691875,
+   "settled_v": 0.407090224,
+   "margin_v": 0.284784776,
+   "refresh_us": 120.78336784369075
+  }
+ ],
+ "w0.3_mr0.5": [
+  {
+   "corner": "tt_1.2V_25C",
+   "threshold_v": 0.6937500000000001,
+   "settled_v": 0.419827134,
+   "margin_v": 0.2739228660000001,
+   "refresh_us": null
+  },
+  {
+   "corner": "ss_1.08V_125C",
+   "threshold_v": 0.6581250000000001,
+   "settled_v": 0.381434092,
+   "margin_v": 0.27669090800000007,
+   "refresh_us": 52.14331021919565
+  }
+ ],
+ "w0.5_mr1.0": [
+  {
+   "corner": "tt_1.2V_25C",
+   "threshold_v": 0.73125,
+   "settled_v": 0.44365025,
+   "margin_v": 0.28759974999999993,
+   "refresh_us": null
+  },
+  {
+   "corner": "ss_1.08V_125C",
+   "threshold_v": 0.691875,
+   "settled_v": 0.419392258,
+   "margin_v": 0.272482742,
+   "refresh_us": 113.029473983165
+  }
+ ]
+}

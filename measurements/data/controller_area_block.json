@@ -1,0 +1,1828 @@
+{
+ "sky130A": {
+  "one_bank_8x8/before": {
+   "controller_cell_area_um2": 2363.5152,
+   "die_area_um2": 10545.1,
+   "macro_area_um2": 3447.0975000000003,
+   "flops": 45,
+   "logic_cells": 173,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.606680944875316,
+     "hold_ns": 0.24686461906748147,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 3.5783861331363944,
+     "hold_ns": 0.6144137039716786,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.958813056089912,
+     "hold_ns": 0.1167356799822009,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 164.7671875
+  },
+  "banked_8x8/before": {
+   "controller_cell_area_um2": 2493.638,
+   "die_area_um2": 14999.4,
+   "macro_area_um2": 5720.714999999999,
+   "flops": 46,
+   "logic_cells": 176,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.253085115583657,
+     "hold_ns": 0.2488308240997007,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 2.789541565585483,
+     "hold_ns": 0.6178059350082085,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.770284302589517,
+     "hold_ns": 0.1179912867474117,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 117.1828125
+  },
+  "one_bank_8x8/after": {
+   "controller_cell_area_um2": 2626.2652,
+   "die_area_um2": 10545.1,
+   "macro_area_um2": 3447.0975000000003,
+   "flops": 45,
+   "logic_cells": 174,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.9090359833284465,
+     "hold_ns": 0.2538712090184751,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 4.141011650791772,
+     "hold_ns": 0.626000935473947,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 5.120024549252215,
+     "hold_ns": 0.12092854837558269,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 164.7671875
+  },
+  "one_bank_8x8/after_drive1": {
+   "controller_cell_area_um2": 2431.0852,
+   "die_area_um2": 10545.1,
+   "macro_area_um2": 3447.0975000000003,
+   "flops": 45,
+   "logic_cells": 191,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.919202073807851,
+     "hold_ns": 0.35404330469438944,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 3.53770756036366,
+     "hold_ns": 0.7094844912386192,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 5.123756230988124,
+     "hold_ns": 0.19095564558971106,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 164.7671875
+  },
+  "banked_8x8/after": {
+   "controller_cell_area_um2": 2741.3779999999997,
+   "die_area_um2": 14999.4,
+   "macro_area_um2": 5720.714999999999,
+   "flops": 46,
+   "logic_cells": 184,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.5465761331574885,
+     "hold_ns": 0.2518429980285769,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 3.419137514337143,
+     "hold_ns": 0.6227238900794798,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.914496060317974,
+     "hold_ns": 0.11989282128661752,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 117.1828125
+  },
+  "banked_8x8/after_drive1": {
+   "controller_cell_area_um2": 2556.198,
+   "die_area_um2": 14999.4,
+   "macro_area_um2": 5720.714999999999,
+   "flops": 46,
+   "logic_cells": 200,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.57414208346013,
+     "hold_ns": 0.23368185825582405,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 3.438611714918256,
+     "hold_ns": 0.5815077473030184,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.930623160429785,
+     "hold_ns": 0.10914014445556271,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 117.1828125
+  },
+  "one_bank_8x8/before_root": {
+   "controller_cell_area_um2": 2278.4352,
+   "die_area_um2": 10545.1,
+   "macro_area_um2": 3447.0975000000003,
+   "flops": 45,
+   "logic_cells": 174,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.596968713581214,
+     "hold_ns": 0.2630113978829601,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 3.5604613598522694,
+     "hold_ns": 0.6458190276466635,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.950104022349234,
+     "hold_ns": 0.12906270861785113,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 164.7671875,
+   "area_by_class": {
+    "macro": 3447.1,
+    "inverter": 52.5504,
+    "sequential_cell": 1182.38,
+    "multi_input_combinational_cell": 945.907,
+    "fill_cell": 1097.3,
+    "tap_cell": 67.5648,
+    "timing_repair_buffer": 40.0384,
+    "clock_buffer": 45.0432,
+    "clock_inverter": 10.0096,
+    "antenna_cell": 2.5024
+   }
+  },
+  "banked_8x8/before_root": {
+   "controller_cell_area_um2": 2406.058,
+   "die_area_um2": 14999.4,
+   "macro_area_um2": 5720.714999999999,
+   "flops": 46,
+   "logic_cells": 176,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.240088400400613,
+     "hold_ns": 0.2619024238278737,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 2.759334616677171,
+     "hold_ns": 0.6440535509429735,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.759027084890652,
+     "hold_ns": 0.12875928465663966,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 117.1828125,
+   "area_by_class": {
+    "macro": 5720.72,
+    "inverter": 45.0432,
+    "sequential_cell": 1208.66,
+    "multi_input_combinational_cell": 1048.51,
+    "fill_cell": 1272.47,
+    "tap_cell": 75.072,
+    "timing_repair_buffer": 40.0384,
+    "clock_buffer": 58.8064,
+    "clock_inverter": 5.0048
+   }
+  },
+  "one_bank_8x8/noreset_root": {
+   "controller_cell_area_um2": 2165.8251999999998,
+   "die_area_um2": 10545.1,
+   "macro_area_um2": 3447.0975000000003,
+   "flops": 45,
+   "logic_cells": 172,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.586269271945696,
+     "hold_ns": 0.2606633316306212,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 3.540337900827993,
+     "hold_ns": 0.6417370150254258,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.943896543198391,
+     "hold_ns": 0.12773063523965664,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 164.7671875,
+   "area_by_class": {
+    "macro": 3447.1,
+    "inverter": 52.5504,
+    "sequential_cell": 1087.29,
+    "multi_input_combinational_cell": 945.907,
+    "fill_cell": 1209.91,
+    "tap_cell": 67.5648,
+    "clock_buffer": 45.0432,
+    "clock_inverter": 10.0096,
+    "timing_repair_buffer": 25.024
+   }
+  },
+  "banked_8x8/noreset_root": {
+   "controller_cell_area_um2": 2294.696,
+   "die_area_um2": 13783.2,
+   "macro_area_um2": 5720.714999999999,
+   "flops": 46,
+   "logic_cells": 178,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.129294800747713,
+     "hold_ns": 0.23433722292579526,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 2.5189788745646675,
+     "hold_ns": 0.5959832795966871,
+     "max_slew_violations": 8,
+     "max_cap_violations": 1
+    },
+    "ff": {
+     "setup_ns": 4.676910990864085,
+     "hold_ns": 0.11009832246406458,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 107.68125,
+   "area_by_class": {
+    "macro": 5720.72,
+    "inverter": 45.0432,
+    "sequential_cell": 1108.56,
+    "multi_input_combinational_cell": 1048.51,
+    "fill_cell": 276.515,
+    "tap_cell": 56.304,
+    "clock_buffer": 52.5504,
+    "clock_inverter": 7.5072,
+    "timing_repair_buffer": 25.024,
+    "antenna_cell": 7.5072
+   }
+  },
+  "one_bank_8x8/noreset_root_drive1": {
+   "controller_cell_area_um2": 2029.4452,
+   "die_area_um2": 10545.1,
+   "macro_area_um2": 3447.0975000000003,
+   "flops": 45,
+   "logic_cells": 179,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.55319039803606,
+     "hold_ns": 0.24857003270384057,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 3.5063664075813135,
+     "hold_ns": 0.6106623712876778,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.907908440792748,
+     "hold_ns": 0.12105769507257473,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 164.7671875,
+   "area_by_class": {
+    "macro": 3447.1,
+    "inverter": 22.5216,
+    "sequential_cell": 1030.99,
+    "multi_input_combinational_cell": 852.067,
+    "fill_cell": 1346.29,
+    "tap_cell": 67.5648,
+    "timing_repair_buffer": 35.0336,
+    "clock_buffer": 58.8064,
+    "clock_inverter": 30.0288
+   }
+  },
+  "banked_8x8/noreset_root_drive1": {
+   "controller_cell_area_um2": 2103.266,
+   "die_area_um2": 13783.2,
+   "macro_area_um2": 5720.714999999999,
+   "flops": 46,
+   "logic_cells": 187,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.224080316200408,
+     "hold_ns": 0.2505450362537788,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 2.7362868301233267,
+     "hold_ns": 0.613426715674873,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.745412197510014,
+     "hold_ns": 0.12203183253750695,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 107.68125,
+   "area_by_class": {
+    "macro": 5720.72,
+    "inverter": 26.2752,
+    "sequential_cell": 1051.01,
+    "multi_input_combinational_cell": 938.4,
+    "fill_cell": 467.949,
+    "tap_cell": 56.304,
+    "timing_repair_buffer": 25.024,
+    "clock_buffer": 60.0576,
+    "antenna_cell": 2.5024
+   }
+  },
+  "one_bank_8x8/after_root": {
+   "controller_cell_area_um2": 2210.8752,
+   "die_area_um2": 10545.1,
+   "macro_area_um2": 3447.0975000000003,
+   "flops": 45,
+   "logic_cells": 176,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.79785780240894,
+     "hold_ns": 0.26475217212365354,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 4.084572351515716,
+     "hold_ns": 0.6445244520521862,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 5.046913252388451,
+     "hold_ns": 0.13053758443662675,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 164.7671875,
+   "area_by_class": {
+    "macro": 3447.1,
+    "inverter": 52.5504,
+    "clock_gate_cell": 87.584,
+    "sequential_cell": 1087.29,
+    "multi_input_combinational_cell": 704.426,
+    "fill_cell": 1164.87,
+    "tap_cell": 67.5648,
+    "clock_buffer": 216.458,
+    "clock_inverter": 30.0288,
+    "timing_repair_buffer": 25.024,
+    "antenna_cell": 7.5072
+   }
+  },
+  "banked_8x8/after_root": {
+   "controller_cell_area_um2": 2320.976,
+   "die_area_um2": 13783.2,
+   "macro_area_um2": 5720.714999999999,
+   "flops": 46,
+   "logic_cells": 184,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.515859813911073,
+     "hold_ns": 0.2567136575976616,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 3.0323260316553458,
+     "hold_ns": 0.313850954109041,
+     "max_slew_violations": 8,
+     "max_cap_violations": 1
+    },
+    "ff": {
+     "setup_ns": 4.895261667916963,
+     "hold_ns": 0.12335582904296885,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 107.68125,
+   "area_by_class": {
+    "macro": 5720.72,
+    "inverter": 52.5504,
+    "clock_gate_cell": 87.584,
+    "sequential_cell": 1108.56,
+    "multi_input_combinational_cell": 808.275,
+    "fill_cell": 250.24,
+    "tap_cell": 56.304,
+    "clock_buffer": 208.95,
+    "clock_inverter": 30.0288,
+    "timing_repair_buffer": 25.024
+   }
+  },
+  "one_bank_8x8/after_root_drive1": {
+   "controller_cell_area_um2": 2010.6751999999997,
+   "die_area_um2": 10545.1,
+   "macro_area_um2": 3447.0975000000003,
+   "flops": 45,
+   "logic_cells": 191,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.842498983313236,
+     "hold_ns": 0.23404062683637833,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 3.682660503004319,
+     "hold_ns": 0.5857913209200774,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 5.07377487718435,
+     "hold_ns": 0.10999768074403596,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 164.7671875,
+   "area_by_class": {
+    "macro": 3447.1,
+    "inverter": 48.7968,
+    "clock_gate_cell": 87.584,
+    "sequential_cell": 1030.99,
+    "multi_input_combinational_cell": 561.789,
+    "fill_cell": 1365.06,
+    "tap_cell": 67.5648,
+    "timing_repair_buffer": 35.0336,
+    "clock_buffer": 216.458,
+    "clock_inverter": 30.0288
+   }
+  },
+  "banked_8x8/after_root_drive1": {
+   "controller_cell_area_um2": 2139.556,
+   "die_area_um2": 13783.2,
+   "macro_area_um2": 5720.714999999999,
+   "flops": 46,
+   "logic_cells": 200,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.505364653317863,
+     "hold_ns": 0.25182268094665167,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 3.416981017073121,
+     "hold_ns": 0.6151851424621572,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.886743592541921,
+     "hold_ns": 0.12293139076865071,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 107.68125,
+   "area_by_class": {
+    "macro": 5720.72,
+    "inverter": 48.7968,
+    "clock_gate_cell": 87.584,
+    "sequential_cell": 1051.01,
+    "multi_input_combinational_cell": 678.15,
+    "fill_cell": 431.664,
+    "tap_cell": 56.304,
+    "timing_repair_buffer": 35.0336,
+    "clock_buffer": 208.95,
+    "clock_inverter": 30.0288
+   }
+  },
+  "one_bank_8x8/final": {
+   "controller_cell_area_um2": 2029.4452,
+   "die_area_um2": 10545.1,
+   "macro_area_um2": 3447.0975000000003,
+   "flops": 45,
+   "logic_cells": 179,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.55319039803606,
+     "hold_ns": 0.24857003270384057,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 3.5063664075813135,
+     "hold_ns": 0.6106623712876778,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.907908440792748,
+     "hold_ns": 0.12105769507257473,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 164.7671875,
+   "area_by_class": {
+    "macro": 3447.1,
+    "inverter": 22.5216,
+    "sequential_cell": 1030.99,
+    "multi_input_combinational_cell": 852.067,
+    "fill_cell": 1346.29,
+    "tap_cell": 67.5648,
+    "timing_repair_buffer": 35.0336,
+    "clock_buffer": 58.8064,
+    "clock_inverter": 30.0288
+   }
+  },
+  "banked_8x8/final": {
+   "controller_cell_area_um2": 2103.266,
+   "die_area_um2": 13783.2,
+   "macro_area_um2": 5720.714999999999,
+   "flops": 46,
+   "logic_cells": 187,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.224080316200408,
+     "hold_ns": 0.2505450362537788,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 2.7362868301233267,
+     "hold_ns": 0.613426715674873,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.745412197510014,
+     "hold_ns": 0.12203183253750695,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 107.68125,
+   "area_by_class": {
+    "macro": 5720.72,
+    "inverter": 26.2752,
+    "sequential_cell": 1051.01,
+    "multi_input_combinational_cell": 938.4,
+    "fill_cell": 467.949,
+    "tap_cell": 56.304,
+    "timing_repair_buffer": 25.024,
+    "clock_buffer": 60.0576,
+    "antenna_cell": 2.5024
+   }
+  },
+  "banked_8x64/final": {
+   "controller_cell_area_um2": 6087.084,
+   "die_area_um2": 33621.0,
+   "macro_area_um2": 12760.7568,
+   "flops": 158,
+   "logic_cells": 542,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.3873070862540064,
+     "hold_ns": 0.2416452661920759,
+     "max_slew_violations": 1,
+     "max_cap_violations": 1
+    },
+    "ss": {
+     "setup_ns": 3.1741206117462264,
+     "hold_ns": 0.24646640981286191,
+     "max_slew_violations": 143,
+     "max_cap_violations": 64
+    },
+    "ff": {
+     "setup_ns": 4.795414867596464,
+     "hold_ns": 0.11619511237622263,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 32.8330078125,
+   "area_by_class": {
+    "macro": 12760.8,
+    "inverter": 26.2752,
+    "clock_gate_cell": 35.0336,
+    "sequential_cell": 3298.16,
+    "multi_input_combinational_cell": 2019.44,
+    "fill_cell": 4514.33,
+    "tap_cell": 215.206,
+    "timing_repair_buffer": 51.2992,
+    "clock_buffer": 374.109,
+    "clock_inverter": 160.154,
+    "antenna_cell": 122.618
+   }
+  },
+  "one_bank_8x8/final_nogate": {
+   "controller_cell_area_um2": 2029.4452,
+   "die_area_um2": 10545.1,
+   "macro_area_um2": 3447.0975000000003,
+   "flops": 45,
+   "logic_cells": 179,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.55319039803606,
+     "hold_ns": 0.24857003270384057,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 3.5063664075813135,
+     "hold_ns": 0.6106623712876778,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.907908440792748,
+     "hold_ns": 0.12105769507257473,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 164.7671875,
+   "area_by_class": {
+    "macro": 3447.1,
+    "inverter": 22.5216,
+    "sequential_cell": 1030.99,
+    "multi_input_combinational_cell": 852.067,
+    "fill_cell": 1346.29,
+    "tap_cell": 67.5648,
+    "timing_repair_buffer": 35.0336,
+    "clock_buffer": 58.8064,
+    "clock_inverter": 30.0288
+   }
+  },
+  "banked_8x8/final_nogate": {
+   "controller_cell_area_um2": 2103.266,
+   "die_area_um2": 13783.2,
+   "macro_area_um2": 5720.714999999999,
+   "flops": 46,
+   "logic_cells": 187,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.224080316200408,
+     "hold_ns": 0.2505450362537788,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 2.7362868301233267,
+     "hold_ns": 0.613426715674873,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 4.745412197510014,
+     "hold_ns": 0.12203183253750695,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 107.68125,
+   "area_by_class": {
+    "macro": 5720.72,
+    "inverter": 26.2752,
+    "sequential_cell": 1051.01,
+    "multi_input_combinational_cell": 938.4,
+    "fill_cell": 467.949,
+    "tap_cell": 56.304,
+    "timing_repair_buffer": 25.024,
+    "clock_buffer": 60.0576,
+    "antenna_cell": 2.5024
+   }
+  },
+  "banked_8x64/final_nogate": {
+   "controller_cell_area_um2": 7462.1539999999995,
+   "die_area_um2": 33621.0,
+   "macro_area_um2": 12760.7568,
+   "flops": 158,
+   "logic_cells": 675,
+   "timing": {
+    "tt": {
+     "setup_ns": 4.110153667083408,
+     "hold_ns": 0.2297133659420648,
+     "max_slew_violations": 1,
+     "max_cap_violations": 1
+    },
+    "ss": {
+     "setup_ns": 2.5289246967897565,
+     "hold_ns": 0.5766398632915738,
+     "max_slew_violations": 143,
+     "max_cap_violations": 62
+    },
+    "ff": {
+     "setup_ns": 4.6526512848222845,
+     "hold_ns": 0.10730794334620562,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 32.8330078125,
+   "area_by_class": {
+    "macro": 12760.8,
+    "inverter": 26.2752,
+    "sequential_cell": 3298.16,
+    "multi_input_combinational_cell": 3475.83,
+    "fill_cell": 3139.26,
+    "tap_cell": 215.206,
+    "timing_repair_buffer": 125.12,
+    "clock_buffer": 274.013,
+    "clock_inverter": 95.0912,
+    "antenna_cell": 167.661
+   }
+  },
+  "one_bank_8x8/latch_pdk": {
+   "controller_cell_area_um2": 1970.6396,
+   "die_area_um2": 9809.41,
+   "macro_area_um2": 3447.0975000000003,
+   "flops": 35,
+   "logic_cells": 145,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.018851143402072053,
+     "hold_ns": 0.2521057323147851,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.6235222514790669,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.2032742920412883,
+     "hold_ns": 0.12061491036225579,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 153.27203125,
+   "area_by_class": {
+    "macro": 3447.1,
+    "inverter": 41.2896,
+    "sequential_cell": 829.546,
+    "multi_input_combinational_cell": 769.488,
+    "fill_cell": 559.286,
+    "tap_cell": 52.5504,
+    "timing_repair_buffer": 25.024,
+    "clock_buffer": 300.288,
+    "clock_inverter": 5.0048
+   }
+  },
+  "banked_8x8/latch_pdk": {
+   "controller_cell_area_um2": 2078.2400000000002,
+   "die_area_um2": 14188.6,
+   "macro_area_um2": 5720.714999999999,
+   "flops": 35,
+   "logic_cells": 155,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.25205016565083105,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.6236179527064962,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.12066281648712325,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 110.8484375,
+   "area_by_class": {
+    "macro": 5720.72,
+    "inverter": 52.5504,
+    "sequential_cell": 829.546,
+    "multi_input_combinational_cell": 863.328,
+    "fill_cell": 862.077,
+    "tap_cell": 62.56,
+    "timing_repair_buffer": 25.024,
+    "clock_buffer": 300.288,
+    "clock_inverter": 5.0048,
+    "antenna_cell": 2.5024
+   }
+  },
+  "banked_8x64/latch_pdk": {
+   "controller_cell_area_um2": 4735.796,
+   "die_area_um2": 29310.6,
+   "macro_area_um2": 12760.7568,
+   "flops": 91,
+   "logic_cells": 437,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.2542541804616507,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.6270871777119613,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.12196449750915907,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 28.6236328125,
+   "area_by_class": {
+    "macro": 12760.8,
+    "inverter": 262.752,
+    "sequential_cell": 1672.85,
+    "multi_input_combinational_cell": 2128.29,
+    "fill_cell": 959.67,
+    "tap_cell": 128.874,
+    "timing_repair_buffer": 73.8208,
+    "clock_buffer": 457.939,
+    "clock_inverter": 30.0288,
+    "antenna_cell": 110.106
+   }
+  },
+  "one_bank_8x8/latch": {
+   "controller_cell_area_um2": 1560.2504,
+   "die_area_um2": 9073.7,
+   "macro_area_um2": 3447.0975000000003,
+   "flops": 35,
+   "logic_cells": 158,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.19803936828752203,
+     "hold_ns": 0.25693420340774087,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.6279125175318099,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.3300928512848445,
+     "hold_ns": 0.12742240956372786,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 141.7765625,
+   "area_by_class": {
+    "macro": 3447.1,
+    "inverter": 37.536,
+    "sequential_cell": 797.014,
+    "multi_input_combinational_cell": 614.339,
+    "fill_cell": 335.322,
+    "tap_cell": 41.2896,
+    "timing_repair_buffer": 36.2848,
+    "clock_buffer": 67.5648,
+    "clock_inverter": 5.0048,
+    "antenna_cell": 2.5024
+   }
+  },
+  "banked_8x8/latch": {
+   "controller_cell_area_um2": 1686.6180000000002,
+   "die_area_um2": 12972.4,
+   "macro_area_um2": 5720.714999999999,
+   "flops": 35,
+   "logic_cells": 170,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.2580308817424818,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.6322016422641489,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.07234923975810904,
+     "hold_ns": 0.12980270004026778,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 101.346875,
+   "area_by_class": {
+    "macro": 5720.72,
+    "inverter": 41.2896,
+    "sequential_cell": 797.014,
+    "multi_input_combinational_cell": 730.701,
+    "fill_cell": 146.39,
+    "tap_cell": 43.792,
+    "timing_repair_buffer": 38.7872,
+    "clock_buffer": 67.5648,
+    "clock_inverter": 8.7584,
+    "antenna_cell": 2.5024
+   }
+  },
+  "banked_8x64/latch": {
+   "controller_cell_area_um2": 4422.9890000000005,
+   "die_area_um2": 31034.8,
+   "macro_area_um2": 12760.7568,
+   "flops": 91,
+   "logic_cells": 569,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.2519887148046801,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.6198205457656704,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.12638346282790022,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 30.307421875,
+   "area_by_class": {
+    "macro": 12760.8,
+    "inverter": 251.491,
+    "sequential_cell": 1641.57,
+    "multi_input_combinational_cell": 1855.53,
+    "fill_cell": 2907.79,
+    "tap_cell": 157.651,
+    "timing_repair_buffer": 405.389,
+    "clock_buffer": 120.115,
+    "clock_inverter": 46.2944,
+    "antenna_cell": 102.598
+   }
+  }
+ },
+ "ihp-sg13g2": {
+  "one_bank_8x8/before": {
+   "controller_cell_area_um2": 4203.96,
+   "die_area_um2": 14134.2,
+   "macro_area_um2": 4016.922,
+   "flops": 43,
+   "logic_cells": 199,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.776409181144993,
+     "hold_ns": 0.21061214479662324,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.4740874493835431,
+     "hold_ns": 0.3928625869151997,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.9686429710279522,
+     "hold_ns": 0.10447985827780645,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 220.846875
+  },
+  "banked_8x8/before": {
+   "controller_cell_area_um2": 4443.47,
+   "die_area_um2": 19370.5,
+   "macro_area_um2": 6533.222400000001,
+   "flops": 44,
+   "logic_cells": 231,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.5032090442322857,
+     "hold_ns": 0.21476482311537692,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.020597746313809655,
+     "hold_ns": 0.40146406779732524,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.7841691962173812,
+     "hold_ns": 0.10792490817622659,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 151.33203125
+  },
+  "one_bank_8x8/after_reset": {
+   "controller_cell_area_um2": 4733.77,
+   "die_area_um2": 14134.2,
+   "macro_area_um2": 4016.922,
+   "flops": 43,
+   "logic_cells": 198,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.8716654311734425,
+     "hold_ns": 0.2223307434419957,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.6144649407657142,
+     "hold_ns": 0.40695431509840074,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 1.0234702264266615,
+     "hold_ns": 0.11096138211224155,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 220.846875
+  },
+  "banked_8x8/after_reset": {
+   "controller_cell_area_um2": 4862.59,
+   "die_area_um2": 19370.5,
+   "macro_area_um2": 6533.222400000001,
+   "flops": 44,
+   "logic_cells": 203,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.7721707936063142,
+     "hold_ns": 0.2216402679678777,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.4671196894839339,
+     "hold_ns": 0.41358023731906,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.9562706452916162,
+     "hold_ns": 0.11089723897517974,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 151.33203125
+  },
+  "one_bank_8x8/before_root": {
+   "controller_cell_area_um2": 3877.37,
+   "die_area_um2": 14134.2,
+   "macro_area_um2": 4016.922,
+   "flops": 43,
+   "logic_cells": 196,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.7788063747675609,
+     "hold_ns": 0.21164184892550947,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.47951866057361453,
+     "hold_ns": 0.39371948482541574,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.971020624724734,
+     "hold_ns": 0.10462631057668427,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 220.846875,
+   "area_by_class": {
+    "macro": 4016.92,
+    "inverter": 27.216,
+    "sequential_cell": 2106.52,
+    "multi_input_combinational_cell": 1228.35,
+    "timing_repair_buffer": 357.437,
+    "clock_buffer": 130.637,
+    "clock_inverter": 27.216,
+    "fill_cell": 1544.05
+   }
+  },
+  "banked_8x8/before_root": {
+   "controller_cell_area_um2": 4165.86,
+   "die_area_um2": 19370.5,
+   "macro_area_um2": 6533.222400000001,
+   "flops": 44,
+   "logic_cells": 231,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.5243761129292247,
+     "hold_ns": 0.20359209339107529,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.05630429615244428,
+     "hold_ns": 0.3862748286120913,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.798949373717623,
+     "hold_ns": 0.10178413955326178,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 151.33203125,
+   "area_by_class": {
+    "macro": 6533.22,
+    "inverter": 43.5456,
+    "sequential_cell": 2155.51,
+    "multi_input_combinational_cell": 1340.84,
+    "timing_repair_buffer": 473.558,
+    "clock_buffer": 130.637,
+    "clock_inverter": 21.7728,
+    "fill_cell": 2148.25
+   }
+  },
+  "one_bank_8x8/after_root_reset": {
+   "controller_cell_area_um2": 3902.77,
+   "die_area_um2": 14134.2,
+   "macro_area_um2": 4016.922,
+   "flops": 43,
+   "logic_cells": 198,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.8784031528558435,
+     "hold_ns": 0.2121604063594021,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.6212630585823629,
+     "hold_ns": 0.3984476195096833,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 1.0326673142227678,
+     "hold_ns": 0.10789125453984086,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 220.846875,
+   "area_by_class": {
+    "macro": 4016.92,
+    "inverter": 16.3296,
+    "clock_gate_cell": 136.08,
+    "sequential_cell": 2106.52,
+    "multi_input_combinational_cell": 840.067,
+    "timing_repair_buffer": 391.91,
+    "clock_buffer": 377.395,
+    "clock_inverter": 34.4736,
+    "fill_cell": 1518.65
+   }
+  },
+  "banked_8x8/after_root_reset": {
+   "controller_cell_area_um2": 4073.33,
+   "die_area_um2": 17661.4,
+   "macro_area_um2": 6533.222400000001,
+   "flops": 44,
+   "logic_cells": 205,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.7453673444985506,
+     "hold_ns": 0.22761426721003944,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.42098503652467323,
+     "hold_ns": 0.42243698623734194,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.9469376661934525,
+     "hold_ns": 0.11399642663607187,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 137.9796875,
+   "area_by_class": {
+    "macro": 6533.22,
+    "inverter": 27.216,
+    "clock_gate_cell": 136.08,
+    "sequential_cell": 2155.51,
+    "multi_input_combinational_cell": 997.92,
+    "timing_repair_buffer": 350.179,
+    "clock_buffer": 377.395,
+    "clock_inverter": 29.0304,
+    "fill_cell": 136.08
+   }
+  },
+  "one_bank_8x8/final": {
+   "controller_cell_area_um2": 3877.37,
+   "die_area_um2": 14134.2,
+   "macro_area_um2": 4016.922,
+   "flops": 43,
+   "logic_cells": 196,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.7788063747675609,
+     "hold_ns": 0.21164184892550947,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.47951866057361453,
+     "hold_ns": 0.39371948482541574,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.971020624724734,
+     "hold_ns": 0.10462631057668427,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 220.846875,
+   "area_by_class": {
+    "macro": 4016.92,
+    "inverter": 27.216,
+    "sequential_cell": 2106.52,
+    "multi_input_combinational_cell": 1228.35,
+    "timing_repair_buffer": 357.437,
+    "clock_buffer": 130.637,
+    "clock_inverter": 27.216,
+    "fill_cell": 1544.05
+   }
+  },
+  "banked_8x8/final": {
+   "controller_cell_area_um2": 4165.86,
+   "die_area_um2": 19370.5,
+   "macro_area_um2": 6533.222400000001,
+   "flops": 44,
+   "logic_cells": 231,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.5243761129292247,
+     "hold_ns": 0.20359209339107529,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.05630429615244428,
+     "hold_ns": 0.3862748286120913,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.798949373717623,
+     "hold_ns": 0.10178413955326178,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 151.33203125,
+   "area_by_class": {
+    "macro": 6533.22,
+    "inverter": 43.5456,
+    "sequential_cell": 2155.51,
+    "multi_input_combinational_cell": 1340.84,
+    "timing_repair_buffer": 473.558,
+    "clock_buffer": 130.637,
+    "clock_inverter": 21.7728,
+    "fill_cell": 2148.25
+   }
+  },
+  "banked_8x64/final": {
+   "controller_cell_area_um2": 12503.0,
+   "die_area_um2": 45650.3,
+   "macro_area_um2": 14837.276999999998,
+   "flops": 156,
+   "logic_cells": 557,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.6261942253080008,
+     "hold_ns": 0.21869634500137056,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.22354563277662678,
+     "hold_ns": 0.41061455398065483,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.8602416800161737,
+     "hold_ns": 0.10852458128214998,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 44.58037109375,
+   "area_by_class": {
+    "macro": 14837.3,
+    "inverter": 27.216,
+    "clock_gate_cell": 54.432,
+    "sequential_cell": 7642.25,
+    "multi_input_combinational_cell": 3117.14,
+    "timing_repair_buffer": 651.37,
+    "clock_buffer": 972.518,
+    "antenna_cell": 38.1024,
+    "fill_cell": 5350.67
+   }
+  },
+  "one_bank_8x8/final_nogate": {
+   "controller_cell_area_um2": 3877.37,
+   "die_area_um2": 14134.2,
+   "macro_area_um2": 4016.922,
+   "flops": 43,
+   "logic_cells": 196,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.7788063747675609,
+     "hold_ns": 0.21164184892550947,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.47951866057361453,
+     "hold_ns": 0.39371948482541574,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.971020624724734,
+     "hold_ns": 0.10462631057668427,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 220.846875,
+   "area_by_class": {
+    "macro": 4016.92,
+    "inverter": 27.216,
+    "sequential_cell": 2106.52,
+    "multi_input_combinational_cell": 1228.35,
+    "timing_repair_buffer": 357.437,
+    "clock_buffer": 130.637,
+    "clock_inverter": 27.216,
+    "fill_cell": 1544.05
+   }
+  },
+  "banked_8x8/final_nogate": {
+   "controller_cell_area_um2": 4165.86,
+   "die_area_um2": 19370.5,
+   "macro_area_um2": 6533.222400000001,
+   "flops": 44,
+   "logic_cells": 231,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.5243761129292247,
+     "hold_ns": 0.20359209339107529,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.05630429615244428,
+     "hold_ns": 0.3862748286120913,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.798949373717623,
+     "hold_ns": 0.10178413955326178,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 151.33203125,
+   "area_by_class": {
+    "macro": 6533.22,
+    "inverter": 43.5456,
+    "sequential_cell": 2155.51,
+    "multi_input_combinational_cell": 1340.84,
+    "timing_repair_buffer": 473.558,
+    "clock_buffer": 130.637,
+    "clock_inverter": 21.7728,
+    "fill_cell": 2148.25
+   }
+  },
+  "one_bank_8x8/latch": {
+   "controller_cell_area_um2": 2835.91,
+   "die_area_um2": 12065.8,
+   "macro_area_um2": 4016.922,
+   "flops": 33,
+   "logic_cells": 161,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.2208306378042719,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.4108385969933605,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.11074705355127604,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 188.528125,
+   "area_by_class": {
+    "macro": 4016.92,
+    "inverter": 27.216,
+    "sequential_cell": 1471.48,
+    "multi_input_combinational_cell": 883.613,
+    "timing_repair_buffer": 277.603,
+    "clock_buffer": 159.667,
+    "clock_inverter": 16.3296,
+    "fill_cell": 778.378
+   }
+  },
+  "banked_8x8/latch": {
+   "controller_cell_area_um2": 2986.5,
+   "die_area_um2": 15952.2,
+   "macro_area_um2": 6533.222400000001,
+   "flops": 33,
+   "logic_cells": 169,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.20446162008855362,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.37919640722937287,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.10212936341253258,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 124.6265625,
+   "area_by_class": {
+    "macro": 6533.22,
+    "inverter": 27.216,
+    "sequential_cell": 1471.48,
+    "multi_input_combinational_cell": 1043.28,
+    "timing_repair_buffer": 268.531,
+    "clock_buffer": 159.667,
+    "clock_inverter": 16.3296,
+    "fill_cell": 170.554
+   }
+  },
+  "banked_8x64/latch": {
+   "controller_cell_area_um2": 7361.02,
+   "die_area_um2": 37013.8,
+   "macro_area_um2": 14837.276999999998,
+   "flops": 89,
+   "logic_cells": 449,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.26302899491839804,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.4824657476758313,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.138218274071662,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 36.1462890625,
+   "area_by_class": {
+    "macro": 14837.3,
+    "inverter": 27.216,
+    "sequential_cell": 3198.79,
+    "multi_input_combinational_cell": 3075.41,
+    "timing_repair_buffer": 430.013,
+    "clock_buffer": 580.608,
+    "clock_inverter": 16.3296,
+    "antenna_cell": 32.6592,
+    "fill_cell": 2160.95
+   }
+  },
+  "one_bank_8x8/latch_pdk": {
+   "controller_cell_area_um2": 3233.26,
+   "die_area_um2": 12065.8,
+   "macro_area_um2": 4016.922,
+   "flops": 33,
+   "logic_cells": 161,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.2077635622350522,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.39054427464076236,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.1037088777543385,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 188.528125,
+   "area_by_class": {
+    "macro": 4016.92,
+    "inverter": 27.216,
+    "sequential_cell": 1471.48,
+    "multi_input_combinational_cell": 883.613,
+    "timing_repair_buffer": 244.944,
+    "clock_buffer": 589.68,
+    "clock_inverter": 16.3296,
+    "fill_cell": 381.024
+   }
+  },
+  "banked_8x8/latch_pdk": {
+   "controller_cell_area_um2": 3456.43,
+   "die_area_um2": 17091.6,
+   "macro_area_um2": 6533.222400000001,
+   "flops": 33,
+   "logic_cells": 174,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.21410990253462814,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.3990041743276683,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.10642917404178591,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 133.528125,
+   "area_by_class": {
+    "macro": 6533.22,
+    "inverter": 27.216,
+    "sequential_cell": 1471.48,
+    "multi_input_combinational_cell": 1043.28,
+    "timing_repair_buffer": 308.448,
+    "clock_buffer": 589.68,
+    "clock_inverter": 16.3296,
+    "fill_cell": 752.976
+   }
+  },
+  "banked_8x64/latch_pdk": {
+   "controller_cell_area_um2": 8300.88,
+   "die_area_um2": 37013.8,
+   "macro_area_um2": 14837.276999999998,
+   "flops": 89,
+   "logic_cells": 464,
+   "timing": {
+    "tt": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.2549712735335369,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ss": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.4669714747059546,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    },
+    "ff": {
+     "setup_ns": 0.0,
+     "hold_ns": 0.13262882834053072,
+     "max_slew_violations": 0,
+     "max_cap_violations": 0
+    }
+   },
+   "drc_errors": 0,
+   "lvs_errors": 0,
+   "area_per_bit_um2": 36.1462890625,
+   "area_by_class": {
+    "macro": 14837.3,
+    "inverter": 27.216,
+    "sequential_cell": 3198.79,
+    "multi_input_combinational_cell": 3075.41,
+    "timing_repair_buffer": 348.365,
+    "clock_buffer": 1504.14,
+    "clock_inverter": 16.3296,
+    "antenna_cell": 130.637,
+    "fill_cell": 1221.09
+   }
+  }
+ }
+}

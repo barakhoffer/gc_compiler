@@ -1,0 +1,260 @@
+{
+ "sky130A/loop": {
+  "technology": "sky130A",
+  "refresh_in_macro": false,
+  "one_bank_16x20": {
+   "width_um": 99.675,
+   "height_um": 68.515,
+   "um2_per_bit": 21.341351953125
+  },
+  "banked_8x8": {
+   "width_um": 136.5,
+   "height_um": 41.91,
+   "um2_per_bit": 44.693085937499994
+  },
+  "corners": {
+   "tt_1.8V_25C": {
+    "access_ns": 1.3308825303475404,
+    "write_ns": 0.20848584280372667,
+    "precharge_ns": 0.3529342601736727,
+    "zero_limit_v": 0.36844279407692304,
+    "refresh_ok": null,
+    "refresh_ns": null
+   },
+   "ss_1.62V_125C": {
+    "access_ns": 2.5142735980679687,
+    "write_ns": 0.34905884960093175,
+    "precharge_ns": 0.5629724336928573,
+    "zero_limit_v": 0.2789033546538462,
+    "refresh_ok": null,
+    "refresh_ns": null
+   },
+   "ff_1.98V_-40C": {
+    "access_ns": 0.829110267189402,
+    "write_ns": 0.14531750662925466,
+    "precharge_ns": 0.26076921312016715,
+    "zero_limit_v": 0.41235312150000003,
+    "refresh_ok": null,
+    "refresh_ns": null
+   },
+   "sf_1.8V_25C": {
+    "access_ns": 1.5206679761252622,
+    "write_ns": 0.292757676112475,
+    "precharge_ns": 0.49156888694307177,
+    "zero_limit_v": 0.4985188177307692,
+    "refresh_ok": null,
+    "refresh_ns": null
+   },
+   "fs_1.8V_25C": {
+    "access_ns": 1.3074573949053796,
+    "write_ns": 0.14109691588829712,
+    "precharge_ns": 0.2776993095047976,
+    "zero_limit_v": 0.24020831484615388,
+    "refresh_ok": null,
+    "refresh_ns": null
+   }
+  },
+  "energy_tt": {
+   "read1_pj": 1.8393124634322742,
+   "write_pj": 0.7697115988559082,
+   "refresh_pj": 3.9786566297170545
+  }
+ },
+ "sky130A/rim": {
+  "technology": "sky130A",
+  "refresh_in_macro": true,
+  "one_bank_16x20": {
+   "width_um": 99.675,
+   "height_um": 72.465,
+   "um2_per_bit": 22.571715234375
+  },
+  "banked_8x8": {
+   "width_um": 136.5,
+   "height_um": 45.86,
+   "um2_per_bit": 48.905390625
+  },
+  "corners": {
+   "tt_1.8V_25C": {
+    "access_ns": 1.3730406735677527,
+    "write_ns": 0.20784565562391716,
+    "precharge_ns": 0.4478978803188228,
+    "zero_limit_v": 0.3684428886538461,
+    "refresh_ok": true,
+    "refresh_ns": 4.917400000419829
+   },
+   "ss_1.62V_125C": {
+    "access_ns": 2.5984235882723876,
+    "write_ns": 0.3479610290063091,
+    "precharge_ns": 0.7195564581037769,
+    "zero_limit_v": 0.2788997703076923,
+    "refresh_ok": true,
+    "refresh_ns": 7.500300039963741
+   },
+   "ff_1.98V_-40C": {
+    "access_ns": 0.8565310410039418,
+    "write_ns": 0.14475878911602186,
+    "precharge_ns": 0.33033653554444725,
+    "zero_limit_v": 0.41235204230769235,
+    "refresh_ok": true,
+    "refresh_ns": 3.8545000412829165
+   },
+   "sf_1.8V_25C": {
+    "access_ns": 1.555976117669683,
+    "write_ns": 0.2913952043797966,
+    "precharge_ns": 0.6330070430112498,
+    "zero_limit_v": 0.4985193226923077,
+    "refresh_ok": true,
+    "refresh_ns": 5.134800041123406
+   },
+   "fs_1.8V_25C": {
+    "access_ns": 1.3418461834330782,
+    "write_ns": 0.14062869274489,
+    "precharge_ns": 0.3479558313115622,
+    "zero_limit_v": 0.24020836411538463,
+    "refresh_ok": true,
+    "refresh_ns": 5.01550000041983
+   }
+  },
+  "energy_tt": {
+   "read1_pj": 2.153919254607838,
+   "write_pj": 0.8274485415526075,
+   "refresh_pj": 4.385610375235037
+  },
+  "mc_ss": {
+   "dies": 20,
+   "zero_limit_v": 0.2788997703076923,
+   "failing_dies": [],
+   "worst_one_v": 1.590196262,
+   "worst_zero_v": 0.2889203048
+  }
+ },
+ "ihp-sg13g2/loop": {
+  "technology": "ihp-sg13g2",
+  "refresh_in_macro": false,
+  "one_bank_16x20": {
+   "width_um": 102.735,
+   "height_um": 79.98,
+   "um2_per_bit": 25.6773290625
+  },
+  "banked_8x8": {
+   "width_um": 138.24,
+   "height_um": 47.26,
+   "um2_per_bit": 51.040800000000004
+  },
+  "corners": {
+   "tt_1.2V_25C": {
+    "access_ns": 2.2593592891596948,
+    "write_ns": 0.23449078719890845,
+    "precharge_ns": 0.35146532223466986,
+    "zero_limit_v": 0.43356048715384615,
+    "refresh_ok": null,
+    "refresh_ns": null
+   },
+   "ss_1.08V_125C": {
+    "access_ns": 3.8669063774949444,
+    "write_ns": 0.3550075927157959,
+    "precharge_ns": 0.5357475126036182,
+    "zero_limit_v": 0.4114797906538462,
+    "refresh_ok": null,
+    "refresh_ns": null
+   },
+   "ff_1.32V_-40C": {
+    "access_ns": 1.398296736085128,
+    "write_ns": 0.1621112147209652,
+    "precharge_ns": 0.23000098204970068,
+    "zero_limit_v": 0.4278458393461539,
+    "refresh_ok": null,
+    "refresh_ns": null
+   },
+   "sf_1.2V_25C": {
+    "access_ns": 2.2070463281642834,
+    "write_ns": 0.21682996684261896,
+    "precharge_ns": 0.31428396138300685,
+    "zero_limit_v": 0.3967931556153846,
+    "refresh_ok": null,
+    "refresh_ns": null
+   },
+   "fs_1.2V_25C": {
+    "access_ns": 2.305584215761517,
+    "write_ns": 0.25528040684941744,
+    "precharge_ns": 0.38380809642637664,
+    "zero_limit_v": 0.47024819738461543,
+    "refresh_ok": null,
+    "refresh_ns": null
+   }
+  },
+  "energy_tt": {
+   "read1_pj": 1.2636375076458262,
+   "write_pj": 0.45969683371274106,
+   "refresh_pj": 3.096497018827727
+  }
+ },
+ "ihp-sg13g2/rim": {
+  "technology": "ihp-sg13g2",
+  "refresh_in_macro": true,
+  "one_bank_16x20": {
+   "width_um": 102.735,
+   "height_um": 83.465,
+   "um2_per_bit": 26.796177421875
+  },
+  "banked_8x8": {
+   "width_um": 138.24,
+   "height_um": 50.745,
+   "um2_per_bit": 54.8046
+  },
+  "corners": {
+   "tt_1.2V_25C": {
+    "access_ns": 2.326808279296033,
+    "write_ns": 0.2346821615038197,
+    "precharge_ns": 0.4013854834646432,
+    "zero_limit_v": 0.43355917661538457,
+    "refresh_ok": true,
+    "refresh_ns": 6.985100000366939
+   },
+   "ss_1.08V_125C": {
+    "access_ns": 3.9786434488621882,
+    "write_ns": 0.3553470473320674,
+    "precharge_ns": 0.6068174231780753,
+    "zero_limit_v": 0.4114770755,
+    "refresh_ok": true,
+    "refresh_ns": 10.477500003333331
+   },
+   "ff_1.32V_-40C": {
+    "access_ns": 1.4493351185100054,
+    "write_ns": 0.1622754616219879,
+    "precharge_ns": 0.2646977812670051,
+    "zero_limit_v": 0.42784523315384615,
+    "refresh_ok": true,
+    "refresh_ns": 5.153200000278405
+   },
+   "sf_1.2V_25C": {
+    "access_ns": 2.2776088044265577,
+    "write_ns": 0.2169919139344516,
+    "precharge_ns": 0.35727696081989224,
+    "zero_limit_v": 0.3967912821153846,
+    "refresh_ok": true,
+    "refresh_ns": 6.96310000237063
+   },
+   "fs_1.2V_25C": {
+    "access_ns": 2.3708476477473392,
+    "write_ns": 0.2555837416731992,
+    "precharge_ns": 0.44108265299075206,
+    "zero_limit_v": 0.47024725453846156,
+    "refresh_ok": true,
+    "refresh_ns": 7.0099000009202115
+   }
+  },
+  "energy_tt": {
+   "read1_pj": 1.3665911864349165,
+   "write_pj": 0.4808213431404273,
+   "refresh_pj": 2.8899784704569726
+  },
+  "mc_ss": {
+   "dies": 20,
+   "zero_limit_v": 0.4114770755,
+   "failing_dies": [],
+   "worst_one_v": 1.0355060829,
+   "worst_zero_v": 0.37763500599999994
+  }
+ }
+}

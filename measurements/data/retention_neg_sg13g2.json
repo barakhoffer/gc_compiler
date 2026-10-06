@@ -1,0 +1,22 @@
+{
+ "default_neg": [
+  {
+   "corner": "ss_1.08V_125C",
+   "seed": null,
+   "threshold_v": 0.691875,
+   "settled_v": 0.303189141,
+   "margin_v": 0.388685859,
+   "refresh_us": 143.2219161791235
+  }
+ ],
+ "plain_neg": [
+  {
+   "corner": "ss_1.08V_125C",
+   "seed": null,
+   "threshold_v": 0.725625,
+   "settled_v": 0.258900769,
+   "margin_v": 0.466724231,
+   "refresh_us": 42.430190048442675
+  }
+ ]
+}

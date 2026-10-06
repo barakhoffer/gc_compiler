@@ -1,0 +1,410 @@
+{
+ "plain": [
+  {
+   "corner": "tt_1.8V_-40C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": -40.0,
+   "seed": null,
+   "threshold_v": 1.040625,
+   "settled_v": 0.819447459,
+   "margin_v": 0.22117754099999987,
+   "refresh_s": 0.00032787775795845334
+  },
+  {
+   "corner": "tt_1.8V_0C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 0.0,
+   "seed": null,
+   "threshold_v": 1.0125,
+   "settled_v": 0.735354361,
+   "margin_v": 0.277145639,
+   "refresh_s": 0.00038723935934349034
+  },
+  {
+   "corner": "tt_1.8V_25C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 25.0,
+   "seed": null,
+   "threshold_v": 1.0125,
+   "settled_v": 0.683840619,
+   "margin_v": 0.3286593809999999,
+   "refresh_s": 0.00044279665163344395
+  },
+  {
+   "corner": "tt_1.8V_55C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 55.0,
+   "seed": null,
+   "threshold_v": 0.9984375,
+   "settled_v": 0.623188308,
+   "margin_v": 0.37524919199999995,
+   "refresh_s": 0.0004837482731117038
+  },
+  {
+   "corner": "tt_1.8V_85C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 85.0,
+   "seed": null,
+   "threshold_v": 0.984375,
+   "settled_v": 0.564078057,
+   "margin_v": 0.420296943,
+   "refresh_s": 0.0004212514450432037
+  },
+  {
+   "corner": "tt_1.8V_125C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 125.0,
+   "seed": null,
+   "threshold_v": 0.9703125,
+   "settled_v": 0.488030593,
+   "margin_v": 0.482281907,
+   "refresh_s": 7.401158706393754e-05
+  }
+ ],
+ "negwl": [
+  {
+   "corner": "tt_1.8V_-40C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": -40.0,
+   "seed": null,
+   "threshold_v": 1.0265624999999998,
+   "settled_v": 0.114660305,
+   "margin_v": 0.9119021949999998,
+   "refresh_s": 0.0008741140417561833
+  },
+  {
+   "corner": "tt_1.8V_0C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 0.0,
+   "seed": null,
+   "threshold_v": 1.0125,
+   "settled_v": 0.043850128,
+   "margin_v": 0.968649872,
+   "refresh_s": 0.00088354581934072
+  },
+  {
+   "corner": "tt_1.8V_25C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 25.0,
+   "seed": null,
+   "threshold_v": 0.9984375,
+   "settled_v": 0.011647296,
+   "margin_v": 0.986790204,
+   "refresh_s": 0.0008689239686182108
+  },
+  {
+   "corner": "tt_1.8V_55C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 55.0,
+   "seed": null,
+   "threshold_v": 0.984375,
+   "settled_v": 0.000515746453,
+   "margin_v": 0.983859253547,
+   "refresh_s": 0.0008343216356354896
+  },
+  {
+   "corner": "tt_1.8V_85C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 85.0,
+   "seed": null,
+   "threshold_v": 0.984375,
+   "settled_v": 3.00142051e-05,
+   "margin_v": 0.9843449857949,
+   "refresh_s": 0.0006830717182948133
+  },
+  {
+   "corner": "tt_1.8V_125C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 125.0,
+   "seed": null,
+   "threshold_v": 0.95625,
+   "settled_v": 9.16588482e-05,
+   "margin_v": 0.9561583411518001,
+   "refresh_s": 0.0001151337611969916
+  }
+ ],
+ "lvt_w": [
+  {
+   "corner": "tt_1.8V_-40C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": -40.0,
+   "seed": null,
+   "threshold_v": 1.0265624999999998,
+   "settled_v": 0.447426035,
+   "margin_v": 0.5791364649999998,
+   "refresh_s": 0.0007027913956923074
+  },
+  {
+   "corner": "tt_1.8V_0C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 0.0,
+   "seed": null,
+   "threshold_v": 1.0125,
+   "settled_v": 0.381794251,
+   "margin_v": 0.630705749,
+   "refresh_s": 0.0007399530805029617
+  },
+  {
+   "corner": "tt_1.8V_25C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 25.0,
+   "seed": null,
+   "threshold_v": 0.9984375,
+   "settled_v": 0.343439613,
+   "margin_v": 0.654997887,
+   "refresh_s": 0.0007527863646184461
+  },
+  {
+   "corner": "tt_1.8V_55C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 55.0,
+   "seed": null,
+   "threshold_v": 0.984375,
+   "settled_v": 0.29952666,
+   "margin_v": 0.68484834,
+   "refresh_s": 0.0007617525419074655
+  },
+  {
+   "corner": "tt_1.8V_85C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 85.0,
+   "seed": null,
+   "threshold_v": 0.984375,
+   "settled_v": 0.257571311,
+   "margin_v": 0.726803689,
+   "refresh_s": 0.0007613979710612405
+  },
+  {
+   "corner": "tt_1.8V_125C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 125.0,
+   "seed": null,
+   "threshold_v": 0.95625,
+   "settled_v": 0.204486398,
+   "margin_v": 0.751763602,
+   "refresh_s": 0.00036975723645371107
+  }
+ ],
+ "lvt": [
+  {
+   "corner": "tt_1.8V_-40C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": -40.0,
+   "seed": null,
+   "threshold_v": 1.0265624999999998,
+   "settled_v": 0.468214649,
+   "margin_v": 0.5583478509999998,
+   "refresh_s": 0.0013160333949896474
+  },
+  {
+   "corner": "tt_1.8V_0C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 0.0,
+   "seed": null,
+   "threshold_v": 1.0125,
+   "settled_v": 0.403184677,
+   "margin_v": 0.6093153229999999,
+   "refresh_s": 0.0013682609486639677
+  },
+  {
+   "corner": "tt_1.8V_25C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 25.0,
+   "seed": null,
+   "threshold_v": 1.0125,
+   "settled_v": 0.365205887,
+   "margin_v": 0.647294113,
+   "refresh_s": 0.0014322803753535355
+  },
+  {
+   "corner": "tt_1.8V_55C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 55.0,
+   "seed": null,
+   "threshold_v": 0.9984375,
+   "settled_v": 0.321891793,
+   "margin_v": 0.676545707,
+   "refresh_s": 0.001438371489997537
+  },
+  {
+   "corner": "tt_1.8V_85C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 85.0,
+   "seed": null,
+   "threshold_v": 0.9984375,
+   "settled_v": 0.280628356,
+   "margin_v": 0.717809144,
+   "refresh_s": 0.001433122387063059
+  },
+  {
+   "corner": "tt_1.8V_125C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 125.0,
+   "seed": null,
+   "threshold_v": 0.984375,
+   "settled_v": 0.228400699,
+   "margin_v": 0.755974301,
+   "refresh_s": 0.0006997709833642888
+  }
+ ],
+ "lvt_mr": [
+  {
+   "corner": "tt_1.8V_-40C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": -40.0,
+   "seed": null,
+   "threshold_v": 1.096875,
+   "settled_v": 0.468397305,
+   "margin_v": 0.6284776950000001,
+   "refresh_s": 0.0015627689763302753
+  },
+  {
+   "corner": "tt_1.8V_0C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 0.0,
+   "seed": null,
+   "threshold_v": 1.096875,
+   "settled_v": 0.403194845,
+   "margin_v": 0.693680155,
+   "refresh_s": 0.0016607819787643025
+  },
+  {
+   "corner": "tt_1.8V_25C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 25.0,
+   "seed": null,
+   "threshold_v": 1.0828125000000002,
+   "settled_v": 0.365242568,
+   "margin_v": 0.7175699320000002,
+   "refresh_s": 0.0016704524424294106
+  },
+  {
+   "corner": "tt_1.8V_55C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 55.0,
+   "seed": null,
+   "threshold_v": 1.0828125000000002,
+   "settled_v": 0.321952515,
+   "margin_v": 0.7608599850000002,
+   "refresh_s": 0.0017224585128031151
+  },
+  {
+   "corner": "tt_1.8V_85C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 85.0,
+   "seed": null,
+   "threshold_v": 1.0828125000000002,
+   "settled_v": 0.280723766,
+   "margin_v": 0.8020887340000002,
+   "refresh_s": 0.001696399195370178
+  },
+  {
+   "corner": "tt_1.8V_125C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 125.0,
+   "seed": null,
+   "threshold_v": 1.0828125000000002,
+   "settled_v": 0.228666388,
+   "margin_v": 0.8541461120000002,
+   "refresh_s": 0.0008189706112064669
+  }
+ ],
+ "lvt_r1": [
+  {
+   "corner": "tt_1.8V_-40C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": -40.0,
+   "seed": null,
+   "threshold_v": 1.040625,
+   "settled_v": 0.492520126,
+   "margin_v": 0.5481048739999999,
+   "refresh_s": 0.0022817072261677187
+  },
+  {
+   "corner": "tt_1.8V_0C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 0.0,
+   "seed": null,
+   "threshold_v": 1.0265624999999998,
+   "settled_v": 0.428115521,
+   "margin_v": 0.5984469789999998,
+   "refresh_s": 0.002345229309749008
+  },
+  {
+   "corner": "tt_1.8V_25C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 25.0,
+   "seed": null,
+   "threshold_v": 1.0265624999999998,
+   "settled_v": 0.390719894,
+   "margin_v": 0.6358426059999998,
+   "refresh_s": 0.002426324685937636
+  },
+  {
+   "corner": "tt_1.8V_55C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 55.0,
+   "seed": null,
+   "threshold_v": 1.0125,
+   "settled_v": 0.34785428,
+   "margin_v": 0.66464572,
+   "refresh_s": 0.002437375538904109
+  },
+  {
+   "corner": "tt_1.8V_85C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 85.0,
+   "seed": null,
+   "threshold_v": 1.0125,
+   "settled_v": 0.307078525,
+   "margin_v": 0.705421475,
+   "refresh_s": 0.0024193542339967767
+  },
+  {
+   "corner": "tt_1.8V_125C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 125.0,
+   "seed": null,
+   "threshold_v": 0.9984375,
+   "settled_v": 0.255539229,
+   "margin_v": 0.742898271,
+   "refresh_s": 0.0011625834365833819
+  }
+ ]
+}

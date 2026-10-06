@@ -1,0 +1,4 @@
+build/*
+notebooks/build/*
+measurements/build/*
+*.pyc

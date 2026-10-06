@@ -1,0 +1,286 @@
+{
+ "default": [
+  {
+   "seed": 1,
+   "threshold_v": 0.675,
+   "settled_v": 0.406801768,
+   "margin_v": 0.26819823200000004,
+   "refresh_us": 109.8518943291601
+  },
+  {
+   "seed": 2,
+   "threshold_v": 0.70875,
+   "settled_v": 0.416390808,
+   "margin_v": 0.292359192,
+   "refresh_us": 140.17049640614775
+  },
+  {
+   "seed": 3,
+   "threshold_v": 0.70875,
+   "settled_v": 0.407610785,
+   "margin_v": 0.301139215,
+   "refresh_us": 133.29307655773954
+  },
+  {
+   "seed": 4,
+   "threshold_v": 0.725625,
+   "settled_v": 0.414741119,
+   "margin_v": 0.310883881,
+   "refresh_us": 153.96630353331165
+  },
+  {
+   "seed": 5,
+   "threshold_v": 0.725625,
+   "settled_v": 0.410925501,
+   "margin_v": 0.31469949899999994,
+   "refresh_us": 155.24787355497295
+  },
+  {
+   "seed": 6,
+   "threshold_v": 0.691875,
+   "settled_v": 0.420484433,
+   "margin_v": 0.271390567,
+   "refresh_us": 120.23933560311626
+  },
+  {
+   "seed": 7,
+   "threshold_v": 0.691875,
+   "settled_v": 0.39189698,
+   "margin_v": 0.29997802,
+   "refresh_us": 122.49493209945861
+  },
+  {
+   "seed": 8,
+   "threshold_v": 0.725625,
+   "settled_v": 0.40995595,
+   "margin_v": 0.31566904999999995,
+   "refresh_us": 160.77263383600126
+  },
+  {
+   "seed": 9,
+   "threshold_v": 0.70875,
+   "settled_v": 0.405367111,
+   "margin_v": 0.303382889,
+   "refresh_us": 134.80996027203554
+  },
+  {
+   "seed": 10,
+   "threshold_v": 0.70875,
+   "settled_v": 0.399454991,
+   "margin_v": 0.309295009,
+   "refresh_us": 134.75176432893159
+  },
+  {
+   "seed": 11,
+   "threshold_v": 0.675,
+   "settled_v": 0.420418458,
+   "margin_v": 0.25458154200000005,
+   "refresh_us": 112.00176643367094
+  },
+  {
+   "seed": 12,
+   "threshold_v": 0.691875,
+   "settled_v": 0.409991756,
+   "margin_v": 0.28188324400000003,
+   "refresh_us": 123.57354733344238
+  },
+  {
+   "seed": 13,
+   "threshold_v": 0.6581250000000001,
+   "settled_v": 0.387036523,
+   "margin_v": 0.27108847700000005,
+   "refresh_us": 100.56584206161143
+  },
+  {
+   "seed": 14,
+   "threshold_v": 0.70875,
+   "settled_v": 0.406576741,
+   "margin_v": 0.30217325899999997,
+   "refresh_us": 131.59143121925135
+  },
+  {
+   "seed": 15,
+   "threshold_v": 0.70875,
+   "settled_v": 0.413543237,
+   "margin_v": 0.295206763,
+   "refresh_us": 141.04176819821828
+  },
+  {
+   "seed": 16,
+   "threshold_v": 0.6581250000000001,
+   "settled_v": 0.400575496,
+   "margin_v": 0.2575495040000001,
+   "refresh_us": 100.00961750860868
+  },
+  {
+   "seed": 17,
+   "threshold_v": 0.675,
+   "settled_v": 0.426169122,
+   "margin_v": 0.24883087800000003,
+   "refresh_us": 102.63936026082993
+  },
+  {
+   "seed": 18,
+   "threshold_v": 0.691875,
+   "settled_v": 0.404063134,
+   "margin_v": 0.287811866,
+   "refresh_us": 125.80149795482573
+  },
+  {
+   "seed": 19,
+   "threshold_v": 0.675,
+   "settled_v": 0.406900062,
+   "margin_v": 0.26809993800000004,
+   "refresh_us": 110.8879550333742
+  },
+  {
+   "seed": 20,
+   "threshold_v": 0.675,
+   "settled_v": 0.406367049,
+   "margin_v": 0.26863295100000006,
+   "refresh_us": 109.2061100471947
+  }
+ ],
+ "plain": [
+  {
+   "seed": 1,
+   "threshold_v": 0.70875,
+   "settled_v": 0.374664216,
+   "margin_v": 0.334085784,
+   "refresh_us": 33.3574829739436
+  },
+  {
+   "seed": 2,
+   "threshold_v": 0.7425,
+   "settled_v": 0.355390844,
+   "margin_v": 0.38710915600000007,
+   "refresh_us": 38.67097499726028
+  },
+  {
+   "seed": 3,
+   "threshold_v": 0.691875,
+   "settled_v": 0.355095703,
+   "margin_v": 0.33677929700000003,
+   "refresh_us": 31.873267965672103
+  },
+  {
+   "seed": 4,
+   "threshold_v": 0.6581250000000001,
+   "settled_v": 0.357975519,
+   "margin_v": 0.30014948100000005,
+   "refresh_us": 26.929709072689437
+  },
+  {
+   "seed": 5,
+   "threshold_v": 0.691875,
+   "settled_v": 0.370206653,
+   "margin_v": 0.321668347,
+   "refresh_us": 30.191505537450414
+  },
+  {
+   "seed": 6,
+   "threshold_v": 0.725625,
+   "settled_v": 0.365666621,
+   "margin_v": 0.35995837899999994,
+   "refresh_us": 36.275416949920555
+  },
+  {
+   "seed": 7,
+   "threshold_v": 0.7425,
+   "settled_v": 0.371504977,
+   "margin_v": 0.37099502300000003,
+   "refresh_us": 39.423967816245025
+  },
+  {
+   "seed": 8,
+   "threshold_v": 0.7762500000000001,
+   "settled_v": 0.375929249,
+   "margin_v": 0.4003207510000001,
+   "refresh_us": 44.852933509528285
+  },
+  {
+   "seed": 9,
+   "threshold_v": 0.7425,
+   "settled_v": 0.348676579,
+   "margin_v": 0.39382342100000006,
+   "refresh_us": 40.76836241901433
+  },
+  {
+   "seed": 10,
+   "threshold_v": 0.725625,
+   "settled_v": 0.335753255,
+   "margin_v": 0.389871745,
+   "refresh_us": 39.374315069057836
+  },
+  {
+   "seed": 11,
+   "threshold_v": 0.7425,
+   "settled_v": 0.377505639,
+   "margin_v": 0.36499436100000004,
+   "refresh_us": 37.06832372411013
+  },
+  {
+   "seed": 12,
+   "threshold_v": 0.70875,
+   "settled_v": 0.359951493,
+   "margin_v": 0.348798507,
+   "refresh_us": 32.58064056846353
+  },
+  {
+   "seed": 13,
+   "threshold_v": 0.725625,
+   "settled_v": 0.36720169,
+   "margin_v": 0.35842330999999994,
+   "refresh_us": 35.6641073105923
+  },
+  {
+   "seed": 14,
+   "threshold_v": 0.725625,
+   "settled_v": 0.348579605,
+   "margin_v": 0.37704539499999995,
+   "refresh_us": 38.16328555729775
+  },
+  {
+   "seed": 15,
+   "threshold_v": 0.7425,
+   "settled_v": 0.361314538,
+   "margin_v": 0.38118546200000003,
+   "refresh_us": 38.34903679270373
+  },
+  {
+   "seed": 16,
+   "threshold_v": 0.7762500000000001,
+   "settled_v": 0.350495182,
+   "margin_v": 0.4257548180000001,
+   "refresh_us": 45.26876694558242
+  },
+  {
+   "seed": 17,
+   "threshold_v": 0.7762500000000001,
+   "settled_v": 0.350311017,
+   "margin_v": 0.4259389830000001,
+   "refresh_us": 46.7217983553325
+  },
+  {
+   "seed": 18,
+   "threshold_v": 0.725625,
+   "settled_v": 0.361056035,
+   "margin_v": 0.36456896499999997,
+   "refresh_us": 36.141598929991
+  },
+  {
+   "seed": 19,
+   "threshold_v": 0.675,
+   "settled_v": 0.355837557,
+   "margin_v": 0.319162443,
+   "refresh_us": 29.156714927075814
+  },
+  {
+   "seed": 20,
+   "threshold_v": 0.7593750000000001,
+   "settled_v": 0.357947204,
+   "margin_v": 0.4014277960000001,
+   "refresh_us": 42.09661729659583
+  }
+ ]
+}

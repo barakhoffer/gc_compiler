@@ -1,0 +1,66 @@
+{
+ "array/floorplan.py": {
+  "floats": 6,
+  "names": 0
+ },
+ "array/macro_supply.py": {
+  "floats": 5,
+  "names": 0
+ },
+ "array/strap_column.py": {
+  "floats": 1,
+  "names": 0
+ },
+ "array/wordline_decoder.py": {
+  "floats": 3,
+  "names": 0
+ },
+ "cli.py": {
+  "floats": 2,
+  "names": 0
+ },
+ "compiler.py": {
+  "floats": 2,
+  "names": 0
+ },
+ "flow/librelane.py": {
+  "floats": 5,
+  "names": 0
+ },
+ "flow/memory.py": {
+  "floats": 2,
+  "names": 0
+ },
+ "periphery/decoder.py": {
+  "floats": 4,
+  "names": 0
+ },
+ "rtl.py": {
+  "floats": 8,
+  "names": 0
+ },
+ "verify/flatnet.py": {
+  "floats": 1,
+  "names": 0
+ },
+ "verify/lvs.py": {
+  "floats": 1,
+  "names": 0
+ },
+ "verify/montecarlo.py": {
+  "floats": 4,
+  "names": 0
+ },
+ "verify/parasitics.py": {
+  "floats": 1,
+  "names": 0
+ },
+ "verify/sim.py": {
+  "floats": 13,
+  "names": 0
+ },
+ "verify/timing.py": {
+  "floats": 24,
+  "names": 0
+ }
+}
