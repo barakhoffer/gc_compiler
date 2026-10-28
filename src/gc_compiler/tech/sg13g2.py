@@ -396,7 +396,8 @@ SIZING = Sizing(
 #: Measured on SG13G2 (``measurements/data/retention_mc_ss_sg13g2.json``): the worst of 20 mismatch dies at
 #: ss, 1.08 V, 125 C on the extracted 16x20 macro, as on sky130; the controller's timing from the
 #: macro's five-corner characterisation (``ControllerTiming.from_characterisation``: read 7.9 ns,
-#: write 1.1, precharge 0.64), rounded up as sky130's are. The controller's own share of a read
+#: write 1.1, precharge 0.64), rounded up as sky130's are, the write to the 10 ns a '0' takes to
+#: settle (below). The controller's own share of a read
 #: (``sample_ns``) from the routed 8x8 blocks' static timing at ss: 1.53 ns past ``read_ns`` one
 #: bank (the macro arc's 5% late derate 0.40, re's flop 0.42, the input mux 0.24, setup 0.19, clock
 #: uncertainty 0.25 and skew), 1.79 ns banked (a wider mux); the hold budget (``macro_min_ns``) under the fastest output, a 4x4
@@ -414,13 +415,21 @@ CHARACTERISED = Characterised(
     unmeasured_refresh_us=26.9,  # the shortest measured
     strobe_factor=1.25,  # dout is valid by 0.87 x rdy at every corner
     controller=ControllerDefaults(
-        read_ns=8.0, write_ns=2.0, precharge_ns=2.0, sample_ns=2.0, macro_min_ns=0.5, rdy_lag_ns=1.0,
+        read_ns=8.0, write_ns=10.0, precharge_ns=2.0, sample_ns=2.0, macro_min_ns=0.5, rdy_lag_ns=1.0,
         timeout_ns=50.0,
+        # a '0' through the PMOS write device, its word line only 0.12 V below ground, takes ~10 ns
+        # to settle (its crossing is 1.1 ns): a 2 ns write -- or a refresh's write-back -- leaves it
+        # far above the level the refresh intervals start from
+        write_settle_ns=10.0,
     ),
     idle_storage_node_v=0.4,
     decayed_one_fraction=0.7,
     macro_input_pf=0.005,
     macro_output_transition_ns=0.2,
+    # a '1' decayed to 0.7 vdd, refreshed (the level the access leaves, the worse bank; restored is
+    # 0.95 vdd): 2 x 16x20 at ss (125 C) brings it back to 1.06 V (1.03 V needed), 2 x 32x32 only
+    # to 1.138 V already at tt (1.14 V), 2 x 64x64 1.11 V, 2 x 128x128 0.78 V (at ss it misreads it)
+    refresh_max_rows=16,
 )
 
 

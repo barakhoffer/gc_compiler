@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 from gc_compiler.compiler import GainCellCompiler
@@ -27,9 +28,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--plain-cell",
         action="store_true",
-        help="the plain 3T cell (standard-threshold 0.18 um write device, mr as long as ms) "
-        "instead of the default LVT-write cell with a 0.5 um mr; its written '0' needs --neg-wl "
-        "to read back at every corner",
+        help=f"the plain 3T cell (mr as long as ms) instead of the default with a {cell.mr_length:g} um mr; "
+        "its written '0' needs --neg-wl to read back at every corner",
     )
     parser.add_argument("--write-width", type=float, default=None, help=f"default {cell.write_width:g} (the technology's)")
     parser.add_argument(
@@ -59,7 +59,8 @@ def build_parser() -> argparse.ArgumentParser:
         "--write-flavor",
         default=None,
         choices=["lvt", "svt", "hvt"],
-        help="write device implant (default lvt; svt with --plain-cell)",
+        help=f"write device implant (default {cell.write_flavor or 'svt'}, the technology's; lvt writes a "
+        "lower '0' but leaks into the column's other '0's while its write bit line is high: see the README)",
     )
     parser.add_argument(
         "--tap-row-interval", type=int, default=None, help="row pairs between tap rows (default: the technology's)"
@@ -121,7 +122,8 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="each column writes a refresh's data back itself (its write driver is NAND(din, rbl)): "
         "the controller drives din high in a refresh instead of looping dout back (default: on with "
-        "self-timed reads; --no-refresh-in-macro loops the data through the controller)",
+        "self-timed reads; --no-refresh-in-macro loops the data through the controller, which the "
+        "sky130 default cell's '0' does not survive at sf)",
     )
     parser.add_argument(
         "--vneg",
@@ -197,7 +199,7 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         metavar="US",
         help="refresh interval to keep, in us (default: the one measured for the cell at its worst "
-        "corner and die -- 614 for the default cell, 45 for one not measured)",
+        "corner and die -- 154 for the default cell, 45 for one not measured)",
     )
     parser.add_argument("--drc", action="store_true", help="run the PDK DRC deck on the result")
     parser.add_argument(
@@ -269,6 +271,13 @@ def main(argv: list[str] | None = None) -> int:
         negative_write_wl=args.neg_wl, refresh_in_macro=args.refresh_in_macro,
         **{k: v for k, v in given.items() if v is not None},
     )
+    from gc_compiler.rtl import loopback_warning, rows_warning
+
+    if args.controller and rows_warning(cfg, tech):
+        build_parser().error(f"--controller: {rows_warning(cfg, tech)}")
+    for warning in (rows_warning(cfg, tech), loopback_warning(cfg, tech)):
+        if warning:
+            print(f"warning: {warning}", file=sys.stderr)
     compiler = GainCellCompiler(cfg, tech)
     result = compiler.build(
         args.out, name=args.name, macro=args.macro, decoded=args.decoded, banked=args.banked

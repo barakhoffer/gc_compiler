@@ -107,21 +107,25 @@ class ControllerTiming:
         raises :class:`~gc_compiler.tech.characterised.NotCharacterised` if it has none."""
         measured = _measured(tech)
         base = {**vars(measured.controller), "interval_us": measured.unmeasured_refresh_us}
+        del base["write_settle_ns"]
         return cls(**{**base, **overrides})
 
     @classmethod
     def from_characterisation(
-        cls, data: dict, clock_ns: float, interval_us: float, margin: float = 0.5, handshake: bool = False
+        cls, data: dict, clock_ns: float, interval_us: float, margin: float = 0.5, handshake: bool = False,
+        tech=None,
     ) -> ControllerTiming:
         """From a characterisation's ``to_dict()`` (``<name>.timing.json``): the slowest corner of
         each quantity. A self-timed macro's read lasts until it has cut itself off (the slowest
         cutoff, plus 20%): holding ``re`` longer is harmless, so one time serves every corner.
         Otherwise the read strobe is ``strobe_factor`` x ``rdy`` (the access time without a
-        replica). The write pulse is three times the slowest write, at least a nanosecond. With
+        replica). The write pulse is three times the slowest write, at least a nanosecond and
+        ``tech``'s (the default technology's) ``write_settle_ns``. With
         ``handshake``, ``rdy_lag_ns`` is the latest ``dout`` after ``rdy`` of any read, plus 20%
         (at least 0.2 ns)."""
         corners = data["corners"]
-        strobe = data.get("strobe_factor") or _measured().strobe_factor
+        measured = _measured(tech)
+        strobe = data.get("strobe_factor") or measured.strobe_factor
         cutoff = [r["t_cutoff"] for c in corners for r in c.get("reads", []) if r.get("t_cutoff")]
         rdy = [r["t_rdy"] for c in corners for r in c.get("reads", []) if r.get("t_rdy")]
         if cutoff:
@@ -137,10 +141,10 @@ class ControllerTiming:
         ]
         return cls(
             handshake=handshake,
-            rdy_lag_ns=max(0.2, 1.2 * max(lags) * 1e9) if lags else _measured().controller.rdy_lag_ns,
+            rdy_lag_ns=max(0.2, 1.2 * max(lags) * 1e9) if lags else measured.controller.rdy_lag_ns,
             clock_ns=clock_ns,
             read_ns=read_s * 1e9,
-            write_ns=max(3 * write_s * 1e9, 1.0),
+            write_ns=max(3 * write_s * 1e9, 1.0, measured.controller.write_settle_ns),
             precharge_ns=1.2 * max(pre) * 1e9 if pre else 2.0,
             interval_us=interval_us,
             margin=margin,
@@ -151,8 +155,9 @@ def default_refresh_interval_us(cfg: ArrayConfig, tech=None) -> float:
     """The refresh interval measured for ``cfg``'s cell on ``tech`` (the default technology): its
     ``characterised.refresh_intervals`` -- on sky130 the worst of 20 mismatch dies at the worst
     corner (ss, 1.62 V, 125 C) on the extracted 16x20 macro (``measurements/data/retention_mc_ss.json``,
-    ``measurements/data/vneg.json``): 614 us for the default cell (the LVT write with its 0.5 um ``mr``),
-    571 us for the LVT write with both read gates at 0.5 um, 88 us for the plain cell with a -0.3 V
+    ``measurements/data/vneg.json``): 154 us for the default cell (a standard write, a 1.0 um ``mr``),
+    614 us for the LVT write with a 0.5 um ``mr`` and 571 us with both read gates at 0.5 um (measured
+    idle: read and write traffic in their column disturbs their '0's), 88 us for the plain cell with a -0.3 V
     (or lower) write rail. Any other cell gets the shortest measured interval (45 us on sky130):
     measure it (:func:`~gc_compiler.verify.timing.macro_refresh_interval`) for a better one. A
     technology with no measurements raises
@@ -168,11 +173,52 @@ def default_refresh_interval_us(cfg: ArrayConfig, tech=None) -> float:
     for entry in measured.refresh_intervals:
         if cfg.bitcell != BitcellConfig.for_tech(tech, **entry.bitcell):
             continue
+        if entry.refresh_in_macro is not None and entry.refresh_in_macro != cfg.refresh_in_macro:
+            continue
         if entry.negative_rail is None and not cfg.negative_write_wl:
             return entry.microseconds
         if entry.negative_rail is not None and cfg.negative_write_wl and cfg.write_wl_low <= entry.negative_rail:
             return entry.microseconds
     return measured.unmeasured_refresh_us
+
+
+def rows_warning(cfg: ArrayConfig, tech=None) -> str | None:
+    """Why a refresh of ``cfg`` on ``tech`` (the default technology) may lose data because its banks
+    are too tall, or ``None``: more rows per bank than ``characterised.refresh_max_rows``."""
+    if tech is None:
+        from gc_compiler.tech import default_technology
+
+        tech = default_technology()
+    limit = tech.characterised.refresh_max_rows if tech.characterised is not None else None
+    if limit is None or cfg.rows <= limit:
+        return None
+    return (
+        f"{cfg.rows} rows per bank is more than a refresh was measured to restore on {tech.name} "
+        f"({limit}): on a taller column a decayed '1' is written back lower than it was (use banks of "
+        f"at most {limit} rows)"
+    )
+
+
+def loopback_warning(cfg: ArrayConfig, tech=None) -> str | None:
+    """Why ``cfg`` should not loop a refresh's data through the controller on ``tech`` (the default
+    technology), or ``None``: its cell is in ``characterised.loopback_marginal`` and ``cfg`` has no
+    in-macro refresh. On sky130 the default cell's '0' at sf is above what a loop-back column reads
+    as a '0' on 18 of 20 mismatch dies."""
+    from gc_compiler.config import BitcellConfig
+
+    if tech is None:
+        from gc_compiler.tech import default_technology
+
+        tech = default_technology()
+    if cfg.refresh_in_macro or tech.characterised is None:
+        return None
+    if not any(cfg.bitcell == BitcellConfig.for_tech(tech, **cell) for cell in tech.characterised.loopback_marginal):
+        return None
+    return (
+        f"this cell's written '0' is marginal on {tech.name} with the loop-back refresh: under mismatch "
+        "most dies misread it at a skewed corner (keep in-macro refresh: drop --no-refresh-in-macro / "
+        "--no-self-timed / --no-replica, or use another cell)"
+    )
 
 
 def _cycles(ns: float, clock_ns: float) -> int:
@@ -246,40 +292,48 @@ def _width(n: int) -> int:
 
 def controller(name: str, p: ControllerParams, timing: ControllerTiming) -> str:
     """The synchronous refresh controller (see the module docstring)."""
+    # din: outside a user write the controller holds it high, so the write driver holds every write
+    # bit line low. A write bit line left high would leak into every stored '0' of its column
+    # through the write devices -- they are off, but at no gate-source voltage, so they keep
+    # leaking as the '0' rises (the LVT write device ~3 nA at tt and 130 nA at fs, sky130: a '0'
+    # gone in about a microsecond); left low, a '1' leaks down only until its write device's
+    # gate-source voltage turns it further off (tt: 1.80 -> 1.61 V in 10 us). din_q, a flop, opens
+    # the user's data from the write's start until its precharge ends -- steady while we falls --
+    # and the data goes out already in the cycle that takes the write.
+    din_window = (
+        "    reg din_q;\n"
+        "    wire din_on = din_q || (state == S_IDLE && !pending && req && we);\n"
+    )
+    din_open = "\n                        din_q <= 1'b1;"
+    din_close = "\n                din_q <= 1'b0;"
+    din_reset = "\n            din_q <= 1'b0;"
     if p.refresh_in_macro:
         # the macro writes the bit it just sensed back itself (its write driver is NAND(din, rbl), the
         # bit line held since the read): a refresh drives every din high; pch stays up until a
-        # cycle after we falls, so the bit lines hold until the write word line has closed. Outside
-        # refreshes and writes din is held low: the write bit lines then stay high through a user
-        # read instead of following every read bit line down (and up again with the precharge). A
-        # refresh keeps din high from its start: its write bit lines settle while the read still
-        # drives the read bit lines (rising only once those float, a write bit line's fall couples
-        # back into its read bit line through the NAND's gate and can turn a marginal '0' into a '1')
+        # cycle after we falls, so the bit lines hold until the write word line has closed. A
+        # refresh keeps din high from its start: its write bit lines settle while the precharge
+        # still holds the read bit lines (a write bit line's swing couples into its read bit line)
         loopback = (
             "    // the macro's write driver inverts din: a write stores ~din, a read returns what is stored.\n"
-            "    // A refresh drives din high: the macro writes each column's sensed bit back itself.\n"
-            "    // Otherwise din is low (NAND(0, rbl) holds each write bit line still through a read) but\n"
-            "    // in a user write: din_q, a flop, opens it from the write's start until its precharge ends --\n"
-            "    // steady while we falls -- and the data goes out already in the cycle that takes the write.\n"
-            "    reg din_q;\n"
-            "    wire din_on = din_q || (state == S_IDLE && !pending && req && we);\n"
-            "    wire [COLS-1:0] macro_din = refreshing ? {COLS{1'b1}} : din_on ? ~din : {COLS{1'b0}};"
+            "    // A refresh drives din high: the macro writes each column's sensed bit back itself. Outside a\n"
+            "    // user write din is high too (the write bit lines low: see the generator's comment).\n"
+            + din_window +
+            "    wire [COLS-1:0] macro_din = (din_on && !refreshing) ? ~din : {COLS{1'b1}};"
         )
         write_end = "                count <= refreshing ? PRECHARGE_CYCLES : PRECHARGE_CYCLES - 1;  // a refresh drops pch next cycle"
         pre_release = "\n                m_pch <= 1'b0;"
-        din_open = "\n                        din_q <= 1'b1;"
         hold_open = ""
-        din_close = "\n                din_q <= 1'b0;"
-        din_reset = "\n            din_q <= 1'b0;"
     else:
         loopback = (
             "    // the macro's write driver inverts din: a write stores ~din, a read returns what is stored.\n"
-            "    // Refresh loops the held read data back (din = ~dout rewrites each cell's own value).\n"
-            "    wire [COLS-1:0] macro_din = refreshing ? ~macro_dout : ~din;"
+            "    // Refresh loops the held read data back (din = ~dout rewrites each cell's own value); outside\n"
+            "    // a user write or a refresh din is high (the write bit lines low).\n"
+            + din_window +
+            "    wire [COLS-1:0] macro_din = refreshing ? ~macro_dout : din_on ? ~din : {COLS{1'b1}};"
         )
         write_end = "                m_pch <= 1'b0;\n                count <= PRECHARGE_CYCLES - 1;"
         pre_release = ""
-        din_open = hold_open = din_close = din_reset = ""
+        hold_open = ""
     banked = p.banks == 2
     row_bits = address_bits(p.rows)
     cnt_w = _width(max(p.read_cycles, p.write_cycles, p.precharge_cycles))

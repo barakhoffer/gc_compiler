@@ -216,9 +216,14 @@ class GainCellCompiler:
         ``characterisation``, or a ``timing`` (:class:`~gc_compiler.rtl.ControllerTiming`) with a
         read time that covers its slowest corner (holding ``re`` longer is harmless: the macro
         ends each read itself) -- or ``handshake``: the controller then ends each read on the
-        macro's own ``rdy``, however long it takes, at the cost of a synchroniser's latency."""
+        macro's own ``rdy``, however long it takes, at the cost of a synchroniser's latency.
+        Refuses banks taller than the technology's ``characterised.refresh_max_rows``."""
         from gc_compiler.flow.memory import build_memory
+        from gc_compiler.rtl import rows_warning
 
+        too_tall = rows_warning(self.cfg, self.tech)
+        if too_tall:  # the hard block refreshes it: refuse rather than build one that loses data
+            raise ValueError(too_tall)
         if timing is None:
             timing = self._controller_timing(clock_ns, interval_us, characterisation, margin, handshake)
         name = name or f"{self.cfg.name}{'_b' if banked else ''}_mem"
@@ -238,7 +243,7 @@ class GainCellCompiler:
             )
         reports = characterisation if isinstance(characterisation, tuple) else (characterisation,)
         data = {"corners": [c for r in reports for c in r.to_dict()["corners"]]}
-        return ControllerTiming.from_characterisation(data, clock_ns, interval_us, margin, handshake)
+        return ControllerTiming.from_characterisation(data, clock_ns, interval_us, margin, handshake, tech=self.tech)
 
     def refresh_rtl(
         self,

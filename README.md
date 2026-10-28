@@ -65,7 +65,7 @@ each has a way back.
 | Default | Why | Opt out |
 |---|---|---|
 | The whole memory: array, drivers, column circuits and the row decoder | a macro that takes `addr`/`we`/`re`/`din` and gives `dout` | `--no-decoded` (raw per-row word-line inputs), `--no-macro` (the array alone) / `build(macro=..., decoded=...)` |
-| LVT write device, 0.35 um, with a 0.5 um `mr` (`BitcellConfig()`) | a written '0' reads back at every corner with no extra supply (the plain cell's fails at sf); about 12x the plain cell's retention; +5% area | `--plain-cell` / `BitcellConfig.plain()` |
+| Standard-Vt write device with a 1.0 um `mr` (`BitcellConfig()`) | a written '0' reads back at every corner with no extra supply (the plain cell's fails at sf; at sf only just, and not with the loop-back: [Self-timed reads](#self-timed-reads-the-default-with-the-replica---no-self-timed)), and reads and writes of other rows do not disturb it (the LVT write device's does: [The write device's leakage](#the-write-devices-leakage-and-the-default-cell)); 154 us refresh interval | `--plain-cell` / `BitcellConfig.plain()` |
 | Replica column | it times the read, and self-timed reads need it; +0.7 to 1.3% area | `--no-replica` / `replica_column=False` |
 | Self-timed reads (with the replica) | no fixed read time is right at every corner; the replica ends each read itself; +2 to 6% area | `--no-self-timed` / `self_timed_read=False` |
 | Two banks around one decoder (decoded macros) | 13 to 24% less area per bit | `--one-bank` / `build(..., banked=False)` |
@@ -164,10 +164,10 @@ place-and-route grid, which a hard block's TopMetal2 straps land on.
 
 | 8x8, decoded | sky130 | SG13G2 |
 |---|---|---|
-| bitcell (default) | 1.27 x 2.63 um (3.34 um^2) | 1.37 x 3.20 um (4.38 um^2) |
-| one bank | 77.6 x 44.5 um, 53.9 um^2/bit | 78.8 x 51.0 um, 62.8 um^2/bit |
-| two banks | 136.5 x 41.9 um, 44.7 um^2/bit | 138.2 x 47.3 um, 51.0 um^2/bit |
-| refresh interval (worst of 20 dies, ss, 125 C) | 614 us | 100 us |
+| bitcell (default) | 1.22 x 2.93 um (3.58 um^2) | 1.37 x 3.20 um (4.38 um^2) |
+| one bank | 77.1 x 50.8 um, 61.2 um^2/bit | 78.8 x 51.0 um, 62.8 um^2/bit |
+| two banks | 134.4 x 48.3 um, 50.7 um^2/bit | 138.2 x 47.3 um, 51.0 um^2/bit |
+| refresh interval (worst of 20 dies, ss, 125 C) | 154 us | 100 us |
 | read, 16x20 macro, ss | | 3.87 ns |
 
 What the port measured (`measurements/scripts/sweep_retention_sg13g2.py`, `measurements/data/*sg13g2.json`):
@@ -182,8 +182,9 @@ What the port measured (`measurements/scripts/sweep_retention_sg13g2.py`, `measu
   oxide (-0.3 V would be 1.50 V). It lowers the written '0' (0.30 V at ss for the default cell) but
   leakage at 125 C still sets the interval: 120.9 us worst die (+21%), 37.8 us for the plain cell
   (+40%); not the default.
-* **The controller's timing** (read 8 ns, write 2, precharge 2) comes from the macro's five-corner
-  characterisation, rounded up as sky130's is. Its own share of a read (`sample_ns` 2.0) is from the
+* **The controller's timing** (read 8 ns, write 10, precharge 2) comes from the macro's five-corner
+  characterisation, rounded up as sky130's is; the write is the ~10 ns a '0' takes to settle through
+  the PMOS write device (its crossing is 1.1 ns), which a refresh's write-back needs too. Its own share of a read (`sample_ns` 2.0) is from the
   routed blocks' static timing at ss: 1.53 ns past the macro's read for one bank, 1.79 banked
   (sky130's 1.5 would not do); the hold budget (0.5 ns) is under the fastest output, a 4x4 macro's
   0.57 ns at ff.
@@ -231,7 +232,7 @@ DRC/LVS test still passes.
 
 | Area | State |
 |---|---|
-| 3T bitcell layout | DRC clean, 1.22 x 2.46 µm (3.00 µm²) on sky130 |
+| 3T bitcell layout | DRC clean, 1.22 x 2.46 µm (3.00 µm²) on sky130 (the plain cell; the default 1.22 x 2.93) |
 | Array tiling, tap rows, shared bit-line contacts | done, DRC clean |
 | Word-line drivers (landed from alternating sides) | done, DRC clean, LVS topology match |
 | Column circuits (precharge, read buffer, write driver) | done, DRC clean, LVS topology match |
@@ -246,13 +247,14 @@ DRC/LVS test still passes.
 | Post-layout timing characterisation (`--characterise`) | done: read/write path by stage, five PVT corners, `rdy` tracking |
 | Mismatch Monte Carlo (`--monte-carlo N`) | done: seeded per-device mismatch dies at each corner, `rdy` margin at 3 sigma |
 | Negative-rail write word-line driver (`--neg-wl`) | done: isolated-well driver + level shifter, DRC clean, LVS match; a written '0' reads back in every corner; +15 to 30% macro area |
-| LVT write device + longer `mr` (the default cell; `--plain-cell` for the old one) | done: no extra supply, DRC clean, LVS match; a written '0' reads back in every corner; +5% macro area (+14% with both read gates at 0.5 um) |
+| LVT write device + longer `mr` (`--write-flavor lvt`; the default before) | done: no extra supply, DRC clean, LVS match; a written '0' reads back in every corner; but its write device leaks 2.6 to 134 nA into the column's '0's whenever the write bit line is high, which reads and writes of other rows do |
+| Default cell: standard-Vt write + 1.0 um `mr` | done: reads every corner on the extracted macro, idle and under read traffic (at sf with no margin: 1 of 20 mismatch dies fails, 18 of 20 with the loop-back refresh); 154 us refresh (worst of 20 dies, ss, 125 C) |
 | Banked macro: two arrays, one central decoder (default; `--one-bank`) | done: DRC clean, LVS match with pin list; 13 to 24% less area per bit than a plain decoded macro; timing per bank (faster than plain at 32x32) |
 | Word-line straps (`--wl-straps`, default from 64 columns) | done: metal3 over every word line, tied down in every strap column; DRC clean, LVS match with pin list (plain, negative rail, LVT, banked); no area; 16x128 access 3.42 -> 1.98 ns |
 | Stronger word-line drivers (`--wl-driver-strength N`, default 4 from 64 columns) | done: scaled inverters and negative-rail output stages in wider driver columns; DRC clean, LVS match with pin list; with straps, 16x128 access 1.98 -> 1.25 ns at 4x for +2.6% area |
 | Self-timed reads (default with the replica; `--no-self-timed`) | done: the replica's `rdy` gates the decoder's read enable, so every read ends itself and `dout` holds; reads correct at every corner however long `re` is held; DRC clean, LVS match with pin list (plain, banked, with straps, negative rail, 4x drivers); +2 to 6% area |
-| Refresh (`--refresh`) | done: one access per row; by default the macro writes the row back itself (write driver `NAND(din, rbl)`; `--no-refresh-in-macro` loops it through the controller); restores decayed '1's and '0's on the extracted macro at every corner and under 20 mismatch dies at ss; controller + behavioural model + testbench (iverilog) |
-| Controller as hardware (`--controller`) | done: the macro and its refresh controller as one LibreLane-built hard block (GDS, LEF, timing libraries, netlists); DRC/LVS/antenna clean, timed at tt/ss/ff, the testbench passing on the routed netlist; the latch controller 2.4k (2 x 16x20) to 2.9k um2 (2 x 32x32) of cells; block 33.8 / 18.5 um2/bit against the macro's 18.3 / 12.3 |
+| Refresh (`--refresh`) | done: one access per row; by default the macro writes the row back itself (write driver `NAND(din, rbl)`; `--no-refresh-in-macro` loops it through the controller); restores decayed '1's and '0's on the extracted macro at every corner and under 20 mismatch dies at ss, up to 32 rows a bank on sky130 (taller banks write a decayed '1' back low: [the row cap](#refresh---refresh)); controller + behavioural model + testbench (iverilog) |
+| Controller as hardware (`--controller`) | done: the macro and its refresh controller as one LibreLane-built hard block (GDS, LEF, timing libraries, netlists); DRC/LVS/antenna clean, timed at tt/ss/ff, the testbench passing on the routed netlist; the latch controller 2.1k (2 x 16x20) to 2.5k um2 (2 x 32x32) of cells; block 33.5 / 18.1 um2/bit against the macro's 19.3 / 12.5 |
 
 ### Address decoding
 
@@ -641,15 +643,25 @@ With mismatch (`--characterise --monte-carlo 20`, extracted 16x20 with replica; 
 | plain: '0' / '1' fails | 0 / 0 | 0 / 0 | 0 / 0 | **20** / 0 | 0 / 0 |
 | LVT write, `mr_length=0.5`: '0' / '1' fails | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
 | LVT write, `mr_length=0.5`: access (ns) | 1.63 | 3.13 | 0.99 | 1.84 | 1.62 |
+| default cell, in-macro refresh: '0' / '1' fails | 0 / 0 | 0 / 0 | 0 / 0 | **1** / 0 | 0 / 0 |
+| default cell, in-macro refresh: access (ns) | 1.75 | 3.48 | 1.04 | 1.82 | 1.92 |
+| default cell, loop-back (`--no-refresh-in-macro`): '0' / '1' fails | 0 / 0 | 0 / 0 | 0 / 0 | **18** / 0 | 0 / 0 |
 
-No die's '0' flips at all before its word line turns off. The plain cell's sf failures are its own
-(its written '0', 0.88 V, is already above what sf reads as a '0'): at the 1.25x strobe half its
+No LVT die's '0' flips at all before its word line turns off. The plain cell's sf failures are its
+own (its written '0', 0.88 V, is already above what sf reads as a '0'): at the 1.25x strobe half its
 dies failed there, and a read held to the cutoff loses them all -- self-timing does not rescue a
-cell whose '0' is out of spec, and the LVT cell (or the negative rail) is what sf needs.
+cell whose '0' is out of spec, and the LVT cell (or the negative rail) is what sf needs. The
+default cell (a standard-Vt write, a 1.0 um `mr`) is at the edge at sf: its written '0', 0.92 V, is
+as high as a column with in-macro refresh still reads as a '0' there, and one die of 20 fails (none
+of 20 in either bank of a banked 16x20). A loop-back column reads a '0' at sf only up to 0.86 V, so
+with `--no-refresh-in-macro` (or without self-timed reads, which takes the loop-back) the default
+cell's '0' fails at sf; the LVT cell, with its lower '0', does not. `gc-compiler` warns when it
+builds the default sky130 cell that way (`characterised.loopback_marginal`); IHP SG13G2's default
+cell writes its '0' at 0.40 V against a 0.54 V loop-back limit and needs no warning.
 
 Area, with replica (um2/bit): plain 16x20 19.13 -> 20.11 (+5.1%), 32x32 12.86 -> 13.33 (+3.7%);
-banked 16x20 15.88 -> 16.31 (+2.7%), 32x32 10.90 -> 11.14 (+2.2%); with the default LVT cell, one bank
-of 16x20 20.16 -> 21.34 (+5.9%) -- mostly the metal3 route round
+banked 16x20 15.88 -> 16.31 (+2.7%), 32x32 10.90 -> 11.14 (+2.2%); with the default cell, one bank
+of 16x20 21.47 -> 22.25 (+3.6%; the LVT cell's 20.17 -> 21.36, +5.9%) -- mostly the metal3 route round
 the macro's edge (0.5 um out: a via2 landing and metal3 spacing), and the banked decoder's extra
 inputs. The refresh controller is generated
 only for self-timed macros (`GainCellCompiler.refresh_rtl` refuses others): with the read ending
@@ -715,9 +727,11 @@ or `GainCellCompiler.refresh_rtl`) writes four files next to the GDS:
   read cutoff, write and precharge; otherwise conservative defaults (stated in the file's header).
   It needs a self-timed macro (the default, see above): a clocked read of fixed length cannot
   be right at every corner. The interval defaults to the one measured for the cell, worst die at
-  ss/125 C (`rtl.default_refresh_interval_us`): 614 us for the default cell, 571 us for the LVT
-  write with both read gates at 0.5 um, 88 us for the plain cell with a -0.3 V rail, and the
-  shortest measured, 45 us, for any other cell.
+  ss/125 C (`rtl.default_refresh_interval_us`): 154 us for the default cell (a standard-Vt write
+  device, a 1.0 um `mr`), 614 us for the LVT write with a 0.5 um `mr` and 571 us with both read
+  gates at 0.5 um (both measured idle: their '0's do not survive read or write traffic in their
+  column, see [The write device's leakage](#the-write-devices-leakage-and-the-default-cell)), 88 us
+  for the plain cell with a -0.3 V rail, and the shortest measured, 45 us, for any other cell.
 * `<name>_model.v`: a behavioural model of the macro (its pins, no supplies) that keeps
   retention: a row not rewritten within `RETENTION_NS` reads `x`.
 * `<name>_top.v`: the controller wired to the macro.
@@ -735,28 +749,68 @@ refresh access at tt and ss, and the CLI.
 custom slice in the column: rbl's PMOS 2x, both NMOS 2x). A refresh drives every `din` high, so
 each column writes back the bit its own read bit line holds since the read; nothing loops through
 the controller, so there is no `dout -> din` path to time, and `pch` falls a cycle after `we`.
-Outside refreshes `din` is low except in a user write (a flop opens it from the write's start to
-the end of its precharge, steady as `we` falls): with `din` high through a user read, every write
-bit line followed its read bit line down and up again, which doubled the read energy and nearly
-doubled the precharge. A refresh still raises `din` from its start: raised only once the read had
-ended, the write bit line's fall coupled back through the NAND into the then floating read bit line
-and turned a marginal '0' (0.55 V on SG13G2 at tt) into a '1'.
+Outside a user write `din` is high (a flop opens the user's data from the write's start to the end
+of its precharge, steady as `we` falls), so the write bit lines idle low. They were held high
+instead for a while -- `din` low, to save read energy: with `din` high, each column that reads a '1'
+raises its write bit line, `NAND(1, rbl)`, and lowers it again with the precharge, which doubles a
+read's energy -- but a write bit line left high leaks into every '0' of its column through the write
+devices, and on the extracted macro that lost every '0' within 2 us of idling (see
+[The write device's leakage](#the-write-devices-leakage-and-the-default-cell)). The read energy is
+the price of in-macro refresh now (the loop-back's write bit lines do not move in a read). A
+refresh raises `din` from its start: raised only once the read had ended, the write bit line's fall
+coupled back through the NAND into the then floating read bit line and turned a marginal '0' (0.55 V
+on SG13G2 at tt) into a '1'.
 `measurements/scripts/compare_refresh_in_macro.py`, extracted 16x20 macro (energy at tt, every
 column kept; refresh under 20 mismatch dies at ss):
 
 | | sky130 loop-back -> in-macro | SG13G2 loop-back -> in-macro |
 |---|---|---|
-| macro area per bit, 16x20 / 8x8 banked | +5.8% / +9.4% | +4.4% / +7.4% |
-| read access tt / ss | 1.33 -> 1.37 / 2.51 -> 2.60 ns | 2.26 -> 2.33 / 3.87 -> 3.98 ns |
-| precharge tt | 0.35 -> 0.45 ns | 0.35 -> 0.40 ns |
-| read energy (all '1's), tt | 1.84 -> 2.15 pJ (4.12 with `din` high) | 1.26 -> 1.37 pJ (2.72) |
-| refresh energy, tt | 3.98 -> 4.39 pJ | 3.10 -> 2.89 pJ |
+| macro area per bit, 16x20 / 8x8 banked | +5.4% / +8.9% | +4.4% / +7.4% |
+| read access tt / ss | 1.43 -> 1.52 / 2.76 -> 2.96 ns | 2.26 -> 2.33 / 3.87 -> 3.98 ns |
+| precharge tt | 0.37 -> 0.64 ns | 0.35 -> 0.40 ns |
+| read energy (all '1's), tt | 1.90 -> 4.33 pJ | 1.26 -> 2.72 pJ (1.37 with `din` low) |
+| refresh energy, tt | 4.11 -> 4.38 pJ | 3.10 -> 2.89 pJ |
 | refresh at every corner; mismatch dies failing at ss | yes; 0 of 20 | yes; 0 of 20 |
 
 It is the default: no data path leaves the macro in a refresh (nothing to time after routing,
-nothing a slow corner can miss), for 4-9% of macro area and 9-17% of a read's energy. Without
+nothing a slow corner can miss), for 4-9% of macro area and about twice a read's energy (with `din`
+high outside writes, as the write bit lines have to idle, each read of a '1' swings its write bit
+line). The sky130 column is the default cell's, with `din` driven as the controller drives it; it
+precharges slower than the LVT cell's did with `din` low (0.37 -> 0.64 ns at tt, against 0.35 ->
+0.45). Without
 self-timed reads (`ArrayConfig.basic`) the loop-back remains, and so does every reference layout
-the regression test pins. (The controller-area measurements below were made with the loop-back.)
+the regression test pins. (The controller-area measurements below were made with the loop-back and
+the LVT cell, the default then.)
+
+**At most 32 rows a bank on sky130.** A read bit line runs beside its own write bit line, on
+metal2, the whole height of the column: on 2 x 128x128 it is 43 fF of the read bit line's 84 fF.
+In a refresh the write bit line follows what the read senses (`NAND(1, rbl)`), and its swing
+couples the floating read bit line back toward the NAND's threshold. A tall column's decayed '1'
+leaves its bit line only just past it when the replica ends the read (0.81 V at 128 rows), so the
+NAND drives the write bit line only part way, and the '1' is written back below where it was. A '1'
+decayed to 0.7 vdd, refreshed, on the extracted macros (bank 0, nominal devices):
+
+| macro | tt (1.26 V ->) | ss, 125 C (1.13 V ->) |
+|---|---|---|
+| 2 x 32x32 | 1.80 V | 1.56 V (2 ns write), 1.60 V (6 ns) |
+| 2 x 64x64 | 1.63 V (1.65 V however long the write) | 1.19 V (2 ns), 1.27 V (6 or 10 ns) |
+| 2 x 128x128 | 1.06 V | -- (its benches outlast the 30-minute limit) |
+
+(Restored is 0.95 vdd.) So `characterised.refresh_max_rows` is 32 on sky130: `gc-compiler` warns
+above it, and `memory()` / `--controller`, whose controller would refresh the macro, refuse.
+Timing the write-back differently only moves the loss: `din` held low through the read (every
+write bit line high and still) restores the '1' at 128 rows (1.77 V at tt), but a '0' column's
+write bit line then falls after the read and turns a marginal '0' into a '1', as above. A keeper on
+the read bit line (an NMOS to vss gated by `dout`) restores the '1' too, and on a short SG13G2
+column turns '0's at 0.55 V into '1's at four corners of five. Taller banks need the two bit lines
+apart, or shielded, in the cell.
+
+**At most 16 rows a bank on SG13G2**, for the same reason. A '1' decayed to 0.7 vdd, refreshed,
+comes back to 1.06 V on a 2 x 16x20 macro at ss, 125 C (1.03 V needed), but only to 1.138 V on
+2 x 32x32 already at tt (1.14 V needed), 1.11 V on 2 x 64x64 and 0.78 V on 2 x 128x128; at ss
+the 128-row macro misreads it. The level is the one the access leaves the cell at, after the write
+word line closes: it trails `we` through the decoder (1.4 ns at ss), so the node is still rising
+when `we` falls.
 
 ## The controller as hardware: one hard block (`--controller`)
 
@@ -794,18 +848,18 @@ from nixpkgs, with yosys, OpenROAD, magic, netgen and KLayout). What it takes:
   its behavioural model; `flow/gatesim.py`). `build_memory` raises unless the block is DRC, LVS and
   antenna clean, meets setup and hold at tt, ss and ff, and passes.
 
-Results, 10 ns clock, the default configuration (two banks, LVT cell, self-timed reads, in-macro
+Results, 10 ns clock, the default configuration (two banks, the default cell, self-timed reads, in-macro
 refresh, the latch controller below). Setup is met at every corner -- the worst slack STA shows is 0,
 the `dout` latches borrowing time inside their window -- and slew and load are within limits:
 
 | memory | bits | block | macro alone | controller (flops + latches) | hold slack tt / ss / ff | power* |
 |---|---|---|---|---|---|---|
-| 2 x 16x20 | 640 | 21,636 um2 (33.8 um2/bit) | 11,696 um2 (18.3) | 2,375 um2, 238 cells, 49 | 0.24 / 0.60 / 0.12 ns | 0.65 mW |
-| 2 x 32x32 | 2048 | 37,856 um2 (18.5 um2/bit) | 25,156 um2 (12.3) | 2,927 um2, 300 cells, 61 | 0.25 / 0.61 / 0.12 ns | 0.75 mW |
-| 2 x 128x128 (`--read-ns 12`) | 32768 | 290,975 um2 (8.88 um2/bit) | 212,189 um2 (6.48) | 9,066 um2, 1,210 cells, 158 | 0.24 / 0.60 / 0.12 ns | 1.9 mW |
+| 2 x 16x20 | 640 | 21,416 um2 (33.5 um2/bit) | 12,362 um2 (19.3) | 2,062 um2, 207 cells, 47 | 0.26 / 0.64 / 0.13 ns | 0.53 mW |
+| 2 x 32x32 | 2048 | 36,969 um2 (18.1 um2/bit) | 25,641 um2 (12.5) | 2,525 um2, 259 cells, 59 | 0.25 / 0.62 / 0.13 ns | 0.66 mW |
+| 2 x 128x128 (`--read-ns 12`; above the row cap, now refused) | 32768 | 303,979 um2 (9.28 um2/bit) | 226,477 um2 (6.91) | 7,913 um2, 1,000 cells, 156 | 0.25 / 0.63 / 0.13 ns | 3.3 mW |
 
 **A smaller controller** (`measurements/scripts/sweep_controller_area.py`; before it, the 2 x 16x20
-and 2 x 32x32 controllers were 3,774 and 5,286 um2, their blocks 34.6 and 19.1 um2/bit). The controller was mostly flops, two a column: `wdata`, a copy of the user's write data, and
+and 2 x 32x32 controllers were 3,774 and 5,286 um2, their blocks 34.6 and 19.1 um2/bit, with the LVT cell). The controller was mostly flops, two a column: `wdata`, a copy of the user's write data, and
 `dout`, the read data, each with a hold multiplexer, besides the macro address `m_addr`. Now:
 
 * **No copy of the user's request.** `we`, `addr` and `din` hold from the edge that takes a request
@@ -826,7 +880,8 @@ and 2 x 32x32 controllers were 3,774 and 5,286 um2, their blocks 34.6 and 19.1 u
   flops were measured on the flop controller too; with no wide data register left, none applies.
 
 What is left: 22-23 flops of control (refresh timer and row, state, phase, strobes, reset
-synchroniser) and a latch a column. Routed, 10 ns clock, all DRC/LVS clean and timed at tt/ss/ff:
+synchroniser) and a latch a column. Routed, 10 ns clock, all DRC/LVS clean and timed at tt/ss/ff
+(sky130 with the LVT cell, the default then: the dies carry its smaller array):
 
 | block | sky130 controller | sky130 die | SG13G2 controller | SG13G2 die |
 |---|---|---|---|---|
@@ -859,8 +914,8 @@ edge, control first, then each column's `din` and `dout` under its column (`user
 placer had put them on the side edges).
 
 **A large macro needs a longer read.** Without `--characterise` the controller assumes a 4 ns read,
-enough for the small macros above but not for 2 x 128x128, whose reads end at about 5.5 ns already
-at tt. `--read-ns` (or `memory(timing=ControllerTiming(read_ns=...))`) sets a bound; a generous one is
+enough for the small macros above but not for 2 x 128x128, whose reads end at about 7 ns already
+at tt (built before the 32-row cap above, which now refuses it). `--read-ns` (or `memory(timing=ControllerTiming(read_ns=...))`) sets a bound; a generous one is
 safe, since the macro ends each read itself and holding `re` longer only adds latency -- the
 128x128 block above uses 12 ns (the tt cutoff times the slow/typical ratio measured at 16x20). Its
 band is set by the 256 `din`/`dout` nets that cross between the banks, not by its cells (hence a
@@ -907,10 +962,11 @@ out and the bench sees `read_timeout`.
 With `--characterise` (`gc-compiler --rows 16 --cols 20 --controller --characterise --corners
 tt,ss,ff`), both banks are characterised first and the measurements set the block's timing instead
 of the conservative defaults: the controller holds a read for the slowest corner's self-timed cutoff
-plus 20% (4.92 ns: ss cuts off at 4.10 ns), writes for three times the slowest write (1.05 ns) and
-precharges for 0.695 ns, and the macro's timing library carries each corner's own read (2.26 / 4.10 /
-1.41 ns at tt / ss / ff, against 4 ns everywhere by default). The block is the same size, DRC and
-LVS clean and passes its testbench; its setup slack at tt grows from 4.2 to 6.0 ns.
+plus 20% (6.18 ns: ss cuts off at 5.15 ns), writes for three times the slowest write (1.46 ns) and
+precharges for 1.26 ns, and the macro's timing library carries each corner's own read (2.66 / 5.15 /
+1.59 ns at tt / ss / ff, against 4 ns everywhere by default). The block is the same size, DRC and
+LVS clean and passes its testbench; its setup slack grows from 0 (the `dout` latches borrowing) to
+1.29 ns at tt and 2.63 ns at ff, and stays 0 at ss.
 
 \* LibreLane's estimate with its default switching activity; most of it is the clock: the
 controller clocks its ~50-60 flops and latches every cycle to refresh one row every few microseconds.
@@ -1169,10 +1225,13 @@ gate, and the read device's own threshold sets how high a '0' it still calls a '
 picks the write device's implant (`lvt` lowers `|Vtp|`, so the write pulls lower) and `read_length` is
 the read gate's length (a longer NMOS has a higher threshold, so it tolerates a higher '0'). Neither
 needs a new driver, a new supply, or a pin: the LVT cell is a bitcell like any other and drops into
-the existing drivers, decoders and column circuits unchanged. Its `mr_length=0.5` variant (below) is
-now the compiler's default cell, `BitcellConfig()`; the "both read gates" variant is
+the existing drivers, decoders and column circuits unchanged. Its `mr_length=0.5` variant (below) was
+the compiler's default cell until its write device's leakage turned up (next section), and is now
+`BitcellConfig(write_flavor="lvt", write_length=0.35, mr_length=0.5)` (CLI `--write-flavor lvt
+--write-length 0.35 --mr-length 0.5`); the "both read gates" variant is
 `BitcellConfig.plain(write_flavor="lvt", write_length=0.35, read_length=0.5)` (CLI `--plain-cell
---write-flavor lvt --write-length 0.35 --read-length 0.5`).
+--write-flavor lvt --write-length 0.35 --read-length 0.5`). (Everything in this section was measured
+with the write bit lines idling low, which hides that leakage.)
 
 `write_length` has to grow from 0.18 to 0.35 um because sky130's LVT PMOS model is only characterised
 at `L >= 0.35`; `read_length` from 0.15 to 0.5 um is chosen the same way `vneg` was for the negative
@@ -1191,7 +1250,7 @@ in `cells/bitcell_3t.py`), so it never pokes out of the n-well at the array's bo
 | + `read_length=0.5` (both read gates) | 21.83 | 1.52 | 0.50 / 0.93 | 0/50 | 617 |
 | + `read_length=1.0` | 26.81 | 2.33 | 0.53 / 0.93 | 0/50 | 994 |
 
-Per corner, the recommended variant -- now the default cell (`write_flavor=lvt`, `write_length=0.35`, `mr_length=0.5`):
+Per corner, the recommended variant -- the default cell before (`write_flavor=lvt`, `write_length=0.35`, `mr_length=0.5`):
 
 | corner | '0' written (V) | read tolerance (V) | margin (V) | '0' reads | access (ns) | write (ns) | refresh (us) |
 |---|---|---|---|---|---|---|---|
@@ -1229,8 +1288,77 @@ What this says:
   and twice the access time.
 
 * **No negative supply, no gate-oxide stress, no extra pin.** Unlike the negative rail, nothing outside
-  the macro has to change, which is why it is the default cell (the negative rail stays available for the plain
+  the macro has to change, which is why it was the default cell (the negative rail stays available for the plain
   cell, `--plain-cell --neg-wl`).
+
+## The write device's leakage, and the default cell
+
+An off write device -- gate at vdd -- still leaks from its write bit line into the storage node. While
+the write bit line is high, a stored '0' leaks up, and the device's gate-source voltage stays at zero
+as it does (its source is the bit line, at vdd), so it keeps leaking all the way; a '1' beside a low
+write bit line leaks down only until its device's gate-source voltage turns it further off (1.80 to
+1.61 V in 10 us at tt). How much it leaks depends on the device, and on sky130 the LVT one -- the
+default cell's until now -- leaks three to five orders of magnitude more than the standard one
+(`measurements/scripts/compare_write_device.py leak`, storage node at 0.3 V, write bit line and gate
+at vdd; `measurements/data/write_device.json`):
+
+| corner | LVT write device (0.42/0.35 um) | standard-Vt write device (0.42/0.18 um) |
+|---|---|---|
+| tt, 25 C | 2.6 nA | 2.9 pA |
+| ss, 125 C | 22.6 nA | 2.8 pA |
+| ff, -40 C | 1.1 nA | 4.9 pA |
+| sf, 25 C | 0.03 nA | 1.5 pA |
+| fs, 25 C | 134 nA | 0.43 nA |
+
+The refresh intervals of the LVT cells (above) were measured with the write bit lines low. A macro
+does not keep them there:
+
+* **Idle.** With in-macro refresh, `din` was held low outside a write (to save read energy, see
+  [Refresh](#refresh---refresh)), so `NAND(0, rbl)` held every write bit line high: on the extracted
+  macro (16x8), 2 us of idling lost every '0' at tt, ss, ff and fs. The controller now holds `din`
+  high outside a write; the write bit lines idle low -- and at fs (134 nA) the LVT cell still loses
+  them within the 2 us (`compare_write_device.py macro`, below).
+* **Reads and writes.** Every read of a '1' raises its column's write bit line (`NAND(1, rbl)`) until
+  the precharge, and every write of a '1' holds it high through the write: 300 reads of another row
+  of '1's (2 us of traffic) still lost every '0' of the column at tt, ss, ff and fs. No idle level of
+  the write bit line fixes that.
+
+So the default cell is now a **standard-Vt write device (0.18 um) with a 1.0 um `mr`**
+(`BitcellConfig()`). Its written '0' is higher than the LVT device's (about 1.0 V at sf on the
+macro, the slow PMOS, and the release of the word line and the bit line couple it up a little), which a
+0.5 um `mr` misreads at sf; a 1.0 um one does not. On the extracted macro, idle 2 us and hammered by
+300 reads (`compare_write_device.py macro`):
+
+| cell | tt | ss | ff | sf | fs |
+|---|---|---|---|---|---|
+| LVT write, 0.5 um `mr` (the default before), `din` high idle | idle ok, hammered **lost** | ok, **lost** | ok, **lost** | ok, ok | **lost**, **lost** |
+| standard-Vt write, 0.5 um `mr` | ok, ok | ok, ok | ok, ok | **misread**, **misread** | ok, ok |
+| standard-Vt write, 1.0 um `mr` (the default) | ok, ok | ok, ok | ok, ok | ok, ok | ok, ok |
+
+(These are nominal devices. Under mismatch the default cell's '0' at sf has no margin left: one of
+20 dies misreads it on a 16x20 macro, and with the loop-back refresh 18 of 20 do --
+[Self-timed reads](#self-timed-reads-the-default-with-the-replica---no-self-timed).)
+
+A longer LVT write device lowers that '0' without the LVT cell's disturb, but trades sf for fs. With
+a 0.5 um `mr`, a 0.75 um or 1.0 um LVT write device writes the sf '0' at 0.70-0.73 V (0.21 V of
+margin with in-macro refresh, 0.12 V with the loop-back, no failing die of 20), and an idle '0' holds at
+every corner. Hammered, though, both lose every '0' of the column at fs: their off current there is
+1.8 nA and 0.73 nA against the standard device's 0.43 nA. They also cost 8% and 17% of cell area,
+35-70x the standard device's leakage at ss, and a layout fix: their write word line's poly covers the
+strap column's n-well tap (615 DRC violations and an LVS short on an 8x8 macro at 0.75 um). The
+default stays; sf is its marginal corner.
+
+Its refresh interval, measured as before (`sweep_retention.py`, `std_mr1`; write bit lines low, as
+the controller now holds them, and no traffic needed to break it): 2331 / 193 / 2381 / 1223 / 2986 us
+at tt / ss / ff / sf / fs, **154 us** for the worst of 20 mismatch dies at ss (724 us at sf) -- the
+controller's default for the cell. The cost: a 7% larger cell than the LVT one (1.22 x 2.93 um,
+3.58 um^2, against 3.34), and slower reads -- `rdy` at about 2.4 ns at tt and 4.3 ns at ss on the
+16x8 macro, against 1.7 and 3.0. IHP SG13G2 is not affected: it has no LVT device, and its
+standard write device leaks 3 to 80 pA.
+
+(Most numbers elsewhere in this README -- macro areas, access times, the hard blocks -- were
+measured with the LVT cell. Where they depend on the cell they move by about its 7% of array area
+and its slower read.)
 
 ## License
 

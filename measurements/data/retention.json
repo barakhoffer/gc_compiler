@@ -340,5 +340,62 @@
    "margin_v": 0.852320789,
    "refresh_s": 0.0027712158515285244
   }
+ ],
+ "std_mr1": [
+  {
+   "corner": "tt_1.8V_25C",
+   "process": "tt",
+   "vdd": 1.8,
+   "temp": 25.0,
+   "seed": null,
+   "threshold_v": 1.1671874999999998,
+   "settled_v": 0.743783381,
+   "margin_v": 0.42340411899999986,
+   "refresh_s": 0.0023312766805339263
+  },
+  {
+   "corner": "ss_1.62V_125C",
+   "process": "ss",
+   "vdd": 1.62,
+   "temp": 125.0,
+   "seed": null,
+   "threshold_v": 1.063125,
+   "settled_v": 0.675972085,
+   "margin_v": 0.38715291500000015,
+   "refresh_s": 0.000193110161
+  },
+  {
+   "corner": "ff_1.98V_-40C",
+   "process": "ff",
+   "vdd": 1.98,
+   "temp": -40.0,
+   "seed": null,
+   "threshold_v": 1.22203125,
+   "settled_v": 0.757061188,
+   "margin_v": 0.4649700619999999,
+   "refresh_s": 0.002380530524300306
+  },
+  {
+   "corner": "sf_1.8V_25C",
+   "process": "sf",
+   "vdd": 1.8,
+   "temp": 25.0,
+   "seed": null,
+   "threshold_v": 1.096875,
+   "settled_v": 0.915675492,
+   "margin_v": 0.18119950800000006,
+   "refresh_s": 0.001222968231998865
+  },
+  {
+   "corner": "fs_1.8V_25C",
+   "process": "fs",
+   "vdd": 1.8,
+   "temp": 25.0,
+   "seed": null,
+   "threshold_v": 1.2234375000000002,
+   "settled_v": 0.540748498,
+   "margin_v": 0.6826890020000002,
+   "refresh_s": 0.0029861833503793756
+  }
  ]
 }

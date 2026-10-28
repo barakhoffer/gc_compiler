@@ -45,6 +45,7 @@ from gc_compiler.periphery.wl_driver import (
     _route_input,
     _route_to_wordline,
     input_exit_offset,
+    landing_edge,
     strap_track_y,
     wordline_width,
     wordline_y,
@@ -178,7 +179,7 @@ def neg_driver_geometry(
         max(wall_x1 - rules.isolation_ring_outer + rules.isolation_nwell_space, wall_x1 + rules.s(LayerRole.NWELL))
         + reach + tech.policy.margin
     )
-    pad_x = rules.snap(width - rules.poly_endcap - pad / 2)
+    pad_x = rules.snap(width - landing_edge(tech, cell) - pad / 2)
     last = pad_x - pad / 2 - track_pitch / 2
     tracks = tuple(rules.snap(last - (1 - i) * track_pitch) for i in range(2))
 

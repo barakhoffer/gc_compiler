@@ -617,9 +617,10 @@ def simulate_reads(
         _pwl("pch", "pch", edge),
         "vwe we 0 0",
         *_address_sources(model, row, vdd),
-        # (with refresh_in_macro the controller holds din low through a user read: NAND(0, rbl) keeps
-        # each write bit line still while its read bit line falls)
-        *_din_sources(model, lambda c: 0.0 if model.refresh_in_macro else vdd),
+        # (the controller holds din high outside a write -- the write bit lines low, so they do not
+        # leak into the stored '0's (rtl.controller) -- so with refresh_in_macro a read bit line's
+        # fall raises its write bit line, NAND(1, rbl))
+        *_din_sources(model, lambda c: vdd),
     ]
     initial = {
         node: (cells[key[1]][1] if key[0] == row and key[1] in cells else settings.sn_idle)
@@ -780,7 +781,8 @@ class RefreshTiming:
     sn_start: float
     """Storage-node level the cell started at (a decayed '1' or '0')."""
     sn_final: float
-    """Level at the end of the write-back."""
+    """Level the access leaves the cell at: at the end of the bench, after the write word line
+    (which opens and closes some time after ``we``) and the precharge are off."""
     t_read: float
     """When ``we`` rose: the read was taken as resolved."""
     t_access: float
@@ -888,7 +890,9 @@ def simulate_refresh(
     t_re = crossing(t, wave["re"], vdd / 2, True) or t0
     t_we = crossing(t, wave["we"], vdd / 2, True, t_re) or tw
     t_off = crossing(t, wave["we"], vdd / 2, False, t_we) or tw1
-    end = (t > t_off - 0.3e-9) & (t <= t_off)
+    # what the access leaves behind, not the level at we's fall: the write word line trails we
+    # through the decoder (1.4 ns on SG13G2 at ss), so the node is still rising when we falls
+    end = t > stop - 0.3e-9
     charge, span = _charge(wave, t0 - s, stop)
     out = {}
     for col, (data, level) in cells.items():
@@ -1061,6 +1065,63 @@ def zero_level_limit(
         mid = (low + high) / 2
         low, high = (mid, high) if reads_zero(mid) else (low, mid)
     return low
+
+
+def refresh_zero_limit(
+    tech: Technology,
+    model: TimingModel,
+    corner: Corner,
+    row: int,
+    col: str,
+    high: float,
+    workdir: str | Path,
+    settings: BenchSettings | None = None,
+    write_time: float = 2e-9,
+    floor: float | None = None,
+    resolution: float = 0.02,
+) -> tuple[float, float]:
+    """``(limit, after)``: the highest storage-node level from which a refresh
+    (:func:`simulate_refresh`, its write ``write_time`` long) leaves a '0' no higher than it was
+    or than ``floor`` (where a written '0' settles, if above it: a refresh brings a '0' toward that,
+    from below too; default the idle level), by bisection between the idle level and ``high``, and
+    the level that refresh leaves it at --
+    :func:`zero_level_limit`'s counterpart for a macro that refreshes itself
+    (``refresh_in_macro``). There the write driver is ``NAND(din, rbl)``: it writes back the level
+    the read bit line reached, not a sensed bit, so a decayed '0' that pulls its bit line near the
+    NAND's threshold comes back in between, or a '1', while a read of it is still right; and a
+    short write pulls even a well-read '0' only part of the way back down. A refresh interval is
+    the drift from ``after`` up to the lower of the two limits (the idle level as ``limit``: a
+    refresh does not restore a '0' at all)."""
+    workdir = Path(workdir)
+    settings = settings or BenchSettings()
+
+    def refresh(level: float) -> RefreshTiming:
+        return simulate_refresh(
+            tech, model, corner, row, {col: (0, level)}, workdir / f"l{level:.3f}", settings, write_time=write_time
+        )[col]
+
+    low = settings.sn_idle
+    floor = max(low, floor or 0.0)
+    best = refresh(low)
+
+    def restores_zero(r: RefreshTiming) -> bool:
+        # (no higher than it was: high is at most the read's limit, so it still reads as a '0'; not
+        # read_ok, whose vdd/2 on the bit line is not where the write-back NAND switches)
+        return r.sn_final <= max(r.sn_start, floor)
+
+    if not restores_zero(best):
+        return low, best.sn_final
+    top = refresh(high)
+    if restores_zero(top):
+        return high, top.sn_final
+    while high - low > resolution:
+        mid = (low + high) / 2
+        r = refresh(mid)
+        if restores_zero(r):
+            low, best = mid, r
+        else:
+            high = mid
+    return low, best.sn_final
 
 
 @dataclass
@@ -1357,13 +1418,17 @@ def characterise(
             # them as the read buffer does
             near = columns[0]
             decayed = _measured(tech).decayed_one_fraction
+            write_time = _measured(tech).controller.write_ns * 1e-9  # the controller's write-back
             refreshes = {}
             for result in results:
                 one = decayed * result.sn_one
                 zero = result.zero_limit if result.zero_limit is not None else result.sn_zero
                 base = workdir / "runs" / result.corner.name
                 refreshes[result.corner.name] = [
-                    pool.submit(simulate_refresh, tech, model, result.corner, far_row, cells, base / f"refresh{i}", settings)
+                    pool.submit(
+                        simulate_refresh, tech, model, result.corner, far_row, cells, base / f"refresh{i}", settings,
+                        write_time=write_time,
+                    )
                     for i, cells in enumerate(({near: (1, one), far_col: (0, zero)}, {near: (0, zero), far_col: (1, one)}))
                 ]
             for result in results:

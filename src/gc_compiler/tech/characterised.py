@@ -20,6 +20,10 @@ class RefreshInterval:
     microseconds: float
     negative_rail: float | None = None
     """With a negative write rail at this level or lower (volts); ``None`` without one."""
+    refresh_in_macro: bool | None = None
+    """Only for macros with (``True``) or without (``False``) the in-macro refresh, whose
+    write-back restores a decayed '0' from a lower level than a read tolerates
+    (:func:`~gc_compiler.verify.timing.refresh_zero_limit`); ``None``: either."""
 
 
 @dataclass(frozen=True)
@@ -34,6 +38,9 @@ class ControllerDefaults:
     macro_min_ns: float
     rdy_lag_ns: float
     timeout_ns: float
+    write_settle_ns: float = 0.0
+    """The shortest write that settles a '0' where the refresh intervals assume it is: a
+    characterisation's write time (three times the slowest write's crossing) is never shorter."""
 
 
 @dataclass(frozen=True)
@@ -54,3 +61,12 @@ class Characterised:
     """A macro input pin's load in its timing library."""
     macro_output_transition_ns: float
     notes: dict = field(default_factory=dict)
+    refresh_max_rows: int | None = None
+    """The most rows per bank a refresh was measured to restore a decayed '1' in (``None``: no
+    limit measured). A read bit line runs beside its write bit line the whole column; on a taller
+    one the write bit line's swing, as the write driver follows what the read senses, couples the
+    read bit line back toward the driver's threshold, and the '1' is written back lower than it
+    was. Measured with the default cell; it holds every cell to it."""
+    loopback_marginal: tuple[dict, ...] = ()
+    """Cells (as :attr:`RefreshInterval.bitcell`) whose written '0' a loop-back column (no in-macro
+    refresh) misreads at some corner under mismatch: the compiler warns when one is built that way."""

@@ -10,6 +10,7 @@ Each strip cell covers one mirrored row pair and drives two of its four word lin
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 
 import gdsfactory as gf
@@ -89,6 +90,20 @@ def far_track_y(tech: Technology, cell: BitcellGeometry) -> tuple[float, float]:
     return low, high
 
 
+def landing_edge(tech: Technology, cell: BitcellGeometry) -> float:
+    """From a word-line landing pad to the array's edge: the poly endcap; and where the cell's next
+    poly sits close above its ``rwl`` (a long ``mr``'s gate, out to the cell's edge), far enough that
+    the pad -- wider than the stripe -- keeps poly spacing from that gate's corner across the edge."""
+    rules = tech.rules
+    edge = rules.poly_endcap
+    if cell.rwl_poly_gap is not None:
+        rise = cell.rwl_poly_gap - (gate_pad_size(tech) - cell.rwl_width) / 2
+        space = rules.s(LayerRole.POLY)
+        if rise < space:
+            edge = max(edge, rules.snap_up(math.sqrt(space**2 - rise**2)) if rise > 0 else space)
+    return edge
+
+
 @dataclass(frozen=True)
 class WlDriverGeometry:
     width: float
@@ -117,7 +132,7 @@ def wl_driver_geometry(
 
     height = 2 * cell.pitch_y
     return WlDriverGeometry(
-        width=rules.snap(pad_x + pad / 2 + rules.poly_endcap),
+        width=rules.snap(pad_x + pad / 2 + landing_edge(tech, cell)),
         height=rules.snap(height),
         track_x=tracks,
         pad_x=pad_x,

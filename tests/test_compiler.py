@@ -126,7 +126,7 @@ def test_the_default_decoded_macro_is_banked_self_timed_and_clean(tech, tmp_path
     from gc_compiler.verify.lvs import lvs_layout_vs_netlist
 
     cfg = ArrayConfig(rows=6, cols=13)
-    assert cfg.bitcell == BitcellConfig() and cfg.bitcell.write_flavor == "lvt"
+    assert cfg.bitcell == BitcellConfig() and cfg.bitcell.write_flavor is None and cfg.bitcell.mr_length == 1.0
     assert cfg.replica_column and cfg.self_timed_read
     result = GainCellCompiler(cfg, tech).build(tmp_path, name="default_decoded", macro=True, decoded=True)
     assert result.banked and result.metrics["bits"] == 2 * cfg.bits

@@ -13,10 +13,10 @@ def _bitcell(*argv: str) -> BitcellConfig:
     return resolve_bitcell(build_parser().parse_args(list(argv)))
 
 
-def test_the_default_cell_is_the_lvt_write_with_a_long_mr():
+def test_the_default_cell_is_a_standard_write_with_a_long_mr():
     cell = _bitcell()
     assert cell == BitcellConfig()
-    assert (cell.write_flavor, cell.write_length, cell.read_length, cell.mr_length) == ("lvt", 0.35, 0.15, 0.5)
+    assert (cell.write_flavor, cell.write_length, cell.read_length, cell.mr_length) == (None, 0.18, 0.15, 1.0)
 
 
 def test_plain_cell_is_the_old_default():
@@ -28,7 +28,8 @@ def test_plain_cell_is_the_old_default():
 
 def test_explicit_geometry_overrides_either_cell():
     cell = _bitcell("--write-length", "0.4", "--mr-length", "0.6")
-    assert (cell.write_length, cell.mr_length, cell.write_flavor) == (0.4, 0.6, "lvt")
+    assert (cell.write_length, cell.mr_length, cell.write_flavor) == (0.4, 0.6, None)
+    assert _bitcell("--write-flavor", "lvt").write_flavor == "lvt"
     plain = _bitcell("--plain-cell", "--read-length", "0.5")
     assert plain.effective_mr_length == 0.5 and plain.write_length == 0.18
     assert _bitcell("--write-flavor", "svt").write_flavor is None

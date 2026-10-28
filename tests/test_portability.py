@@ -84,7 +84,7 @@ def test_a_technology_without_measurements_refuses_to_guess():
         default_refresh_interval_us(cfg, unmeasured)
     with pytest.raises(NotCharacterised):
         ControllerTiming.default(unmeasured)
-    assert default_refresh_interval_us(ArrayConfig.for_tech(SKY130, rows=8, cols=8), SKY130) == 614.0
+    assert default_refresh_interval_us(ArrayConfig.for_tech(SKY130, rows=8, cols=8), SKY130) == 154.0
     assert default_refresh_interval_us(ArrayConfig.for_tech(IHP, rows=8, cols=8), IHP) == 100.0
     assert default_refresh_interval_us(ArrayConfig.basic(IHP, rows=8, cols=8), IHP) == 26.9
     negative = ArrayConfig.for_tech(IHP, rows=8, cols=8, negative_write_wl=True)
@@ -102,3 +102,35 @@ def test_devices_below_the_minimum_are_refused():
     with pytest.raises(ValueError, match="below"):
         gain_cell_3t(IHP, BitcellConfig.for_tech(IHP, read_length=short), name="pt_too_small")
     assert BitcellConfig.for_tech(IHP).read_length >= IHP.rules.device_min_length
+
+
+def test_the_loop_back_warns_only_where_it_misreads():
+    """sky130's default cell needs in-macro refresh at sf; its LVT cell and IHP's default do not."""
+    from gc_compiler.config import ArrayConfig, BitcellConfig
+    from gc_compiler.rtl import loopback_warning
+
+    def cfg(tech, **fields):
+        return ArrayConfig.for_tech(tech, rows=8, cols=8, **fields)
+
+    assert loopback_warning(cfg(SKY130), SKY130) is None
+    assert loopback_warning(cfg(SKY130, refresh_in_macro=False), SKY130)
+    assert loopback_warning(cfg(SKY130, self_timed_read=False), SKY130)
+    lvt = BitcellConfig.for_tech(SKY130, write_flavor="lvt", write_length=0.35, mr_length=0.5)
+    assert loopback_warning(cfg(SKY130, bitcell=lvt, refresh_in_macro=False), SKY130) is None
+    assert loopback_warning(cfg(IHP, refresh_in_macro=False), IHP) is None
+
+
+def test_banks_taller_than_a_measured_refresh_are_refused():
+    """sky130's refresh was measured to restore a '1' up to 32 rows a bank, SG13G2's up to 16:
+    taller warns, and the hard block, which refreshes it, refuses."""
+    from gc_compiler.compiler import GainCellCompiler
+    from gc_compiler.config import ArrayConfig
+    from gc_compiler.rtl import rows_warning
+
+    assert rows_warning(ArrayConfig.for_tech(SKY130, rows=32, cols=64), SKY130) is None
+    tall = ArrayConfig.for_tech(SKY130, rows=64, cols=64)
+    assert "64 rows" in rows_warning(tall, SKY130)
+    assert rows_warning(ArrayConfig.for_tech(IHP, rows=16, cols=64), IHP) is None
+    assert "32 rows" in rows_warning(ArrayConfig.for_tech(IHP, rows=32, cols=32), IHP)
+    with pytest.raises(ValueError, match="64 rows"):
+        GainCellCompiler(tall, SKY130).memory()

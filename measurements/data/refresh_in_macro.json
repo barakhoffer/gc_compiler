@@ -3,129 +3,129 @@
   "technology": "sky130A",
   "refresh_in_macro": false,
   "one_bank_16x20": {
-   "width_um": 99.675,
-   "height_um": 68.515,
-   "um2_per_bit": 21.341351953125
+   "width_um": 97.095,
+   "height_um": 73.315,
+   "um2_per_bit": 22.245374765624998
   },
   "banked_8x8": {
-   "width_um": 136.5,
-   "height_um": 41.91,
-   "um2_per_bit": 44.693085937499994
+   "width_um": 134.565,
+   "height_um": 44.309999999999995,
+   "um2_per_bit": 46.582618359375
   },
   "corners": {
    "tt_1.8V_25C": {
-    "access_ns": 1.3308825303475404,
-    "write_ns": 0.20848584280372667,
-    "precharge_ns": 0.3529342601736727,
-    "zero_limit_v": 0.36844279407692304,
+    "access_ns": 1.4334866750328585,
+    "write_ns": 0.30925470149193746,
+    "precharge_ns": 0.37254250871269756,
+    "zero_limit_v": 0.7479500153076923,
     "refresh_ok": null,
     "refresh_ns": null
    },
    "ss_1.62V_125C": {
-    "access_ns": 2.5142735980679687,
-    "write_ns": 0.34905884960093175,
-    "precharge_ns": 0.5629724336928573,
-    "zero_limit_v": 0.2789033546538462,
+    "access_ns": 2.7594350504181007,
+    "write_ns": 0.48380285324589684,
+    "precharge_ns": 0.593682288563462,
+    "zero_limit_v": 0.6805609523076923,
     "refresh_ok": null,
     "refresh_ns": null
    },
    "ff_1.98V_-40C": {
-    "access_ns": 0.829110267189402,
-    "write_ns": 0.14531750662925466,
-    "precharge_ns": 0.26076921312016715,
-    "zero_limit_v": 0.41235312150000003,
+    "access_ns": 0.8807914519845687,
+    "write_ns": 0.23003562640207406,
+    "precharge_ns": 0.2759175904891324,
+    "zero_limit_v": 0.7607774153076924,
     "refresh_ok": null,
     "refresh_ns": null
    },
    "sf_1.8V_25C": {
-    "access_ns": 1.5206679761252622,
-    "write_ns": 0.292757676112475,
-    "precharge_ns": 0.49156888694307177,
-    "zero_limit_v": 0.4985188177307692,
+    "access_ns": 1.5869035875932904,
+    "write_ns": 0.45631366562193204,
+    "precharge_ns": 0.5235697988531939,
+    "zero_limit_v": 0.8609511002524037,
     "refresh_ok": null,
     "refresh_ns": null
    },
    "fs_1.8V_25C": {
-    "access_ns": 1.3074573949053796,
-    "write_ns": 0.14109691588829712,
-    "precharge_ns": 0.2776993095047976,
-    "zero_limit_v": 0.24020831484615388,
+    "access_ns": 1.4402633667838525,
+    "write_ns": 0.22621516798378474,
+    "precharge_ns": 0.291236956289439,
+    "zero_limit_v": 0.5462697825384616,
     "refresh_ok": null,
     "refresh_ns": null
    }
   },
   "energy_tt": {
-   "read1_pj": 1.8393124634322742,
-   "write_pj": 0.7697115988559082,
-   "refresh_pj": 3.9786566297170545
+   "read1_pj": 1.8981126723485515,
+   "write_pj": 0.7981137343632762,
+   "refresh_pj": 4.10930813617412
   }
  },
  "sky130A/rim": {
   "technology": "sky130A",
   "refresh_in_macro": true,
   "one_bank_16x20": {
-   "width_um": 99.675,
-   "height_um": 72.465,
-   "um2_per_bit": 22.571715234375
+   "width_um": 97.095,
+   "height_um": 77.265,
+   "um2_per_bit": 23.443891171875002
   },
   "banked_8x8": {
-   "width_um": 136.5,
-   "height_um": 45.86,
-   "um2_per_bit": 48.905390625
+   "width_um": 134.565,
+   "height_um": 48.26,
+   "um2_per_bit": 50.73521015625
   },
   "corners": {
    "tt_1.8V_25C": {
-    "access_ns": 1.3730406735677527,
-    "write_ns": 0.20784565562391716,
-    "precharge_ns": 0.4478978803188228,
-    "zero_limit_v": 0.3684428886538461,
+    "access_ns": 1.5230064980561324,
+    "write_ns": 0.3085710557523474,
+    "precharge_ns": 0.6436696276913727,
+    "zero_limit_v": 0.7479489565384616,
     "refresh_ok": true,
-    "refresh_ns": 4.917400000419829
+    "refresh_ns": 5.332799993924925
    },
    "ss_1.62V_125C": {
-    "access_ns": 2.5984235882723876,
-    "write_ns": 0.3479610290063091,
-    "precharge_ns": 0.7195564581037769,
-    "zero_limit_v": 0.2788997703076923,
+    "access_ns": 2.9585029449506277,
+    "write_ns": 0.48241964773160395,
+    "precharge_ns": 1.0584405379671749,
+    "zero_limit_v": 0.6805572245384617,
     "refresh_ok": true,
-    "refresh_ns": 7.500300039963741
+    "refresh_ns": 8.496600003424737
    },
    "ff_1.98V_-40C": {
-    "access_ns": 0.8565310410039418,
-    "write_ns": 0.14475878911602186,
-    "precharge_ns": 0.33033653554444725,
-    "zero_limit_v": 0.41235204230769235,
+    "access_ns": 0.9399866556313152,
+    "write_ns": 0.22946954042571352,
+    "precharge_ns": 0.46478676834095517,
+    "zero_limit_v": 0.7607774277692306,
     "refresh_ok": true,
-    "refresh_ns": 3.8545000412829165
+    "refresh_ns": 4.056000012300142
    },
    "sf_1.8V_25C": {
-    "access_ns": 1.555976117669683,
-    "write_ns": 0.2913952043797966,
-    "precharge_ns": 0.6330070430112498,
-    "zero_limit_v": 0.4985193226923077,
+    "access_ns": 1.6551389454443965,
+    "write_ns": 0.45519690038356664,
+    "precharge_ns": 0.8567989754876286,
+    "zero_limit_v": 0.9183478978846153,
     "refresh_ok": true,
-    "refresh_ns": 5.134800041123406
+    "refresh_ns": 5.500099996591592
    },
    "fs_1.8V_25C": {
-    "access_ns": 1.3418461834330782,
-    "write_ns": 0.14062869274489,
-    "precharge_ns": 0.3479558313115622,
-    "zero_limit_v": 0.24020836411538463,
+    "access_ns": 1.570007531530918,
+    "write_ns": 0.22561629068098152,
+    "precharge_ns": 0.5299572031804317,
+    "zero_limit_v": 0.5462628761153847,
     "refresh_ok": true,
-    "refresh_ns": 5.01550000041983
+    "refresh_ns": 5.538399988337286
    }
   },
   "energy_tt": {
-   "read1_pj": 2.153919254607838,
-   "write_pj": 0.8274485415526075,
-   "refresh_pj": 4.385610375235037
+   "read1_pj": 4.327022914426141,
+   "write_pj": 0.8582624566164324,
+   "refresh_pj": 4.378759205774637
   },
   "mc_ss": {
    "dies": 20,
-   "zero_limit_v": 0.2788997703076923,
+   "zero_limit_v": 0.6805572245384617,
    "failing_dies": [],
-   "worst_one_v": 1.590196262,
-   "worst_zero_v": 0.2889203048
+   "worst_one_v": 1.5537582779999999,
+   "worst_zero_v": 0.6519618478
   }
  },
  "ihp-sg13g2/loop": {

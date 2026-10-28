@@ -5,6 +5,8 @@
     python sweep_retention.py mc [N]    # N mismatch dies at sf (default 20)         -> data/retention_mc.json
     python sweep_retention.py mc_ss [N] # N mismatch dies at ss, the worst nominal corner -> data/retention_mc_ss.json
 
+A third argument, a comma-separated list of options, runs only those (merged into the file).
+
 A point is the true read-tolerance threshold (``zero_level_limit`` bisected from a generous
 bound, not the written level) and the time a written '0' takes to drift up to it on the real
 macro (``macro_refresh_interval``), at the far cell (row 0, last column).
@@ -29,11 +31,13 @@ OPTIONS = {
     "lvt": ({}, {"write_flavor": "lvt", "write_length": 0.35, "read_length": 0.5}),
     "lvt_mr": ({}, {"write_flavor": "lvt", "write_length": 0.35, "mr_length": 0.5}),
     "lvt_r1": ({}, {"write_flavor": "lvt", "write_length": 0.35, "read_length": 1.0}),
+    # the default cell since the LVT write device's disturb (measurements/data/write_device.json)
+    "std_mr1": ({}, {"mr_length": 1.0}),
 }
 TEMPS = (-40.0, 0.0, 25.0, 55.0, 85.0, 125.0)
 
 
-def _models():
+def _models(only=None):
     from gc_compiler.array.floorplan import gc_macro
     from gc_compiler.config import ArrayConfig, BitcellConfig
     from gc_compiler.tech.sky130 import Sky130
@@ -42,6 +46,8 @@ def _models():
     tech = Sky130()
     models = {}
     for name, (array, bitcell) in OPTIONS.items():
+        if only and name not in only:
+            continue
         cfg = ArrayConfig(rows=16, cols=20, replica_column=True, self_timed_read=False, wordline_straps=False, wordline_driver_strength=1.0, bitcell=BitcellConfig.plain(**bitcell), **array)
         work = WORK / name
         work.mkdir(parents=True, exist_ok=True)
@@ -65,10 +71,10 @@ def _point(tech, model, corner, workdir: Path, settings) -> dict:
     }
 
 
-def main(mode: str, dies: int = 20) -> None:
+def main(mode: str, dies: int = 20, only=None) -> None:
     from gc_compiler.verify.timing import BenchSettings, Corner, standard_corners
 
-    tech, models = _models()
+    tech, models = _models(only)
     base = BenchSettings()
     jobs = []
     if mode == "corners":
@@ -92,8 +98,12 @@ def main(mode: str, dies: int = 20) -> None:
             print(name, results[name][-1], flush=True)
     DATA.mkdir(exist_ok=True)
     suffix = {"corners": "", "temp": "_temp", "mc": "_mc", "mc_ss": "_mc_ss"}[mode]
-    (DATA / f"retention{suffix}.json").write_text(json.dumps(results, indent=1) + "\n")
+    path = DATA / f"retention{suffix}.json"
+    merged = json.loads(path.read_text()) if only and path.exists() else {}
+    merged.update(results)
+    path.write_text(json.dumps(merged, indent=1) + "\n")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "corners", int(sys.argv[2]) if len(sys.argv) > 2 else 20)
+    main(sys.argv[1] if len(sys.argv) > 1 else "corners", int(sys.argv[2]) if len(sys.argv) > 2 else 20,
+         sys.argv[3].split(",") if len(sys.argv) > 3 else None)

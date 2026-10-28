@@ -137,7 +137,9 @@ def test_the_grid_is_aligned_onto_the_macros_stripes():
 @requires_sim
 def test_in_macro_refresh_restores_on_sg13g2(tmp_path):
     """The macro's own write-back (refresh_in_macro) on an extracted SG13G2 macro, tt and ss: a '1'
-    decayed to 0.7 vdd and a '0' at 0.55 V both come back."""
+    decayed to 0.7 vdd and a '0' at 0.5 V both come back, with the controller's write-back time
+    (a PMOS write needs about 10 ns to pull a '0' down). At ss a '0' at 0.55 V is already above
+    vdd/2, and the write-back leaves it there."""
     from gc_compiler.array.floorplan import gc_macro
     from gc_compiler.verify.timing import build_model, simulate_refresh, standard_corners
 
@@ -149,7 +151,10 @@ def test_in_macro_refresh_restores_on_sg13g2(tmp_path):
     model = build_model(IHP, cfg, gds, "ihp_rim_test", tmp_path / "model")
     near, far = model.kept[0], model.kept[-1]
     for corner in (c for c in standard_corners(IHP) if c.process in ("tt", "ss")):
-        for cells in ({near: (1, 0.7 * corner.vdd), far: (0, 0.55)}, {near: (0, 0.55), far: (1, 0.7 * corner.vdd)}):
-            result = simulate_refresh(IHP, model, corner, 0, cells, tmp_path / f"{corner.process}_{cells[near][0]}")
+        for cells in ({near: (1, 0.7 * corner.vdd), far: (0, 0.5)}, {near: (0, 0.5), far: (1, 0.7 * corner.vdd)}):
+            result = simulate_refresh(
+                IHP, model, corner, 0, cells, tmp_path / f"{corner.process}_{cells[near][0]}",
+                write_time=IHP.characterised.controller.write_ns * 1e-9,
+            )
             for col, r in result.items():
                 assert r.restored, (corner.name, col, r)

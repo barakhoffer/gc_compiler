@@ -260,11 +260,13 @@ TOOLS = ToolSetup(
     context_waivers=("nwell.4", "LU.2", "LU.3"),
     # wells ending at a leaf's edges (diff/tap.10, .8 -- closed on the assembled layout); a deep
     # n-well ring's rules that hold once its slices abut ("nwell.5a, 7", nwell.7)
-    leaf_waivers=("diff/tap.10", "diff/tap.8", "nwell.5a, 7", "nwell.7"),
+    # (nwell.1: a lone cell's n-well pokes past its edge by the write device's enclosure where the
+    # device sits at the poly endcap from the edge -- a sliver the neighbour's well covers in an array)
+    leaf_waivers=("diff/tap.10", "diff/tap.8", "nwell.5a, 7", "nwell.7", "nwell.1"),
 )
 
 POLICY = LayoutPolicy(
-    tap_row_interval=4,  # 4 row pairs of 2.63 um: every diffusion well within 15 um of a tap row
+    tap_row_interval=4,  # 4 row pairs of 2.93 um (the default cell): every diffusion well within 15 um of a tap row
     strap_column_interval=16,
     power_stripe=PowerStripe(width=1.2, pitch=25.0, clearance=1.5, site_pitch=3.0, scan_step=0.1),
     join=0.05,
@@ -273,12 +275,18 @@ POLICY = LayoutPolicy(
 )
 
 SIZING = Sizing(
-    # the LVT write device (sky130A's LVT PMOS model is characterised from 0.35 um) with a 0.5 um mr
+    # a standard-Vt write device with a 1.0 um mr. The LVT write device (0.35 um, the default before)
+    # writes a lower '0' but leaks 2.6 nA (tt) to 134 nA (fs, 25 C) into a stored '0' whenever its
+    # write bit line is high -- every read of a '1' in its column, every write of a '1' -- against
+    # ~2 pA standard-Vt: on the extracted macro, 300 reads of another row lose every '0' of the
+    # column at tt, ss, ff and fs. The standard device's written '0' is higher (about 1.0 V at sf,
+    # the slow PMOS), which a 0.5 um mr misreads there and a 1.0 um one does not
+    # (measurements/data/write_device.json)
     bitcell={
-        "write_width": 0.42, "write_length": 0.35, "read_width": 0.42, "read_length": 0.15,
-        "mr_length": 0.5, "write_flavor": "lvt",
+        "write_width": 0.42, "write_length": 0.18, "read_width": 0.42, "read_length": 0.15,
+        "mr_length": 1.0, "write_flavor": None,
     },
-    plain_bitcell={"write_length": 0.18, "mr_length": None, "write_flavor": None},
+    plain_bitcell={"mr_length": None},
     logic={"pmos_width": 0.64, "nmos_width": 0.42, "length": 0.15},
     # four times the logic cells': the banked predecode drives up to four faces (README)
     predecode={"pmos_width": 2.56, "nmos_width": 1.68},
@@ -318,7 +326,10 @@ def _synth_excluded(pdk) -> tuple[str, ...] | None:
 
 CHARACTERISED = Characterised(
     refresh_intervals=(
-        RefreshInterval({}, 614.0),  # the default cell
+        RefreshInterval({}, 154.0),  # the default cell (measurements/data/retention_mc_ss.json, std_mr1)
+        # (the LVT write cells': measured with the write bit lines low, as the controller now holds
+        # them; a read or write of a '1' in the column still disturbs their '0's -- see SIZING)
+        RefreshInterval({"mr_length": 0.5, "write_flavor": "lvt", "write_length": 0.35}, 614.0),
         RefreshInterval({"mr_length": None, "write_flavor": "lvt", "write_length": 0.35, "read_length": 0.5}, 571.0),
         RefreshInterval({"write_length": 0.18, "mr_length": None, "write_flavor": None}, 88.0, negative_rail=-0.3),
     ),
@@ -332,6 +343,14 @@ CHARACTERISED = Characterised(
     decayed_one_fraction=0.7,
     macro_input_pf=0.005,
     macro_output_transition_ns=0.2,
+    # the default cell's '0' at sf: 0.92 V written, a loop-back column reads up to 0.86 V (18 of 20
+    # mismatch dies fail; 1 of 20 with in-macro refresh, which reads up to 0.98 V)
+    loopback_marginal=({},),
+    # a '1' decayed to 0.7 vdd, refreshed (the level the access leaves, the worse column): 2 x 32x32 at
+    # ss (125 C) brings it back to 1.59 V (2 ns write; restored is 0.95 vdd, 1.54 V), 2 x 64x64 only to
+    # 1.19 V (1.27 V however long the write; 1.54 V at tt), 2 x 128x128 to 1.06 V already at tt -- its
+    # read bit line has 84 fF, 43 fF of it to its own write bit line
+    refresh_max_rows=32,
 )
 
 #: What magic extracts a poly line over an n-well as.

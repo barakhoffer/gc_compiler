@@ -59,6 +59,10 @@ class BitcellGeometry:
     rwl_width: float
     nwell_y0: float
     nwell_y1: float
+    rwl_poly_gap: float | None = None
+    """From the ``rwl`` gate to the next poly along the strip (``mr``'s gate, which runs to the
+    cell's edge): a word-line driver's landing pad, wider than the stripe, has to keep its spacing
+    from it across the array's edge."""
 
     @property
     def area(self) -> float:
@@ -148,6 +152,9 @@ def bitcell_geometry(tech: Technology, cfg: BitcellConfig | None = None) -> Bitc
         rwl_width=cfg.read_length,
         nwell_y0=rules.snap(nwell_y0),
         nwell_y1=rules.snap(nwell_y1),
+        rwl_poly_gap=rules.snap(
+            (read_plan.gate_y[1] - cfg.effective_mr_length / 2) - (read_plan.gate_y[0] + cfg.read_length / 2)
+        ),
     )
 
 

@@ -64,11 +64,12 @@ def test_generated_verilog_matches_the_macro(banked):
         else:
             assert pin in model
     ctrl = files["mac_ctrl.v"]
-    assert "module mac_ctrl" in ctrl and "refreshing ? ~macro_dout : ~din" in ctrl
+    # (din high outside a write: the write bit lines low, so they do not leak into the '0's)
+    assert "module mac_ctrl" in ctrl and "refreshing ? ~macro_dout : din_on ? ~din : {COLS{1'b1}}" in ctrl
     assert ("m_dout_1" in ctrl) == banked
     # no copy of the user's address and write data: they drive the macro directly; dout is a latch
     assert "reg [COLS-1:0] wdata" not in ctrl and "assign m_addr = refreshing ?" in ctrl
-    assert "~din;" in ctrl and "always @(*) if (dout_open) dout = macro_dout;" in ctrl
+    assert "din_on ? ~din" in ctrl and "always @(*) if (dout_open) dout = macro_dout;" in ctrl
     assert "wire dout_open = !clk && dout_open_q;" in ctrl  # a flop's output gates it: no glitch, half a cycle
 
 
@@ -148,7 +149,9 @@ def test_the_default_refresh_interval_follows_the_cell():
     from gc_compiler.config import BitcellConfig
     from gc_compiler.rtl import default_refresh_interval_us
 
-    assert default_refresh_interval_us(ArrayConfig.basic(bitcell=BitcellConfig())) == 614.0
+    assert default_refresh_interval_us(ArrayConfig.basic(bitcell=BitcellConfig())) == 154.0
+    lvt = BitcellConfig(write_flavor="lvt", write_length=0.35, mr_length=0.5)  # the default before
+    assert default_refresh_interval_us(ArrayConfig.basic(bitcell=lvt)) == 614.0
     assert default_refresh_interval_us(ArrayConfig.basic()) == 45.0
     assert default_refresh_interval_us(ArrayConfig.basic(negative_write_wl=True)) == 88.0
     assert default_refresh_interval_us(ArrayConfig.basic(negative_write_wl=True, write_wl_low=-0.2)) == 45.0
@@ -225,8 +228,8 @@ def test_controller_with_refresh_in_macro(tmp_path, banked):
     cfg = _rim(rows=6 if banked else 16, cols=4 if banked else 8)
     files = refresh_rtl("mac", cfg, FAST, banked)
     ctrl, sdc = files["mac_ctrl.v"], files["mac_ctrl.sdc"]
-    assert "refreshing ? {COLS{1'b1}} : din_on ? ~din" in ctrl and "~macro_dout" not in ctrl
-    assert "din_on ? ~din : {COLS{1'b0}}" in ctrl  # din low through user reads: the write bit lines stay still
+    # din high in a refresh and outside a user write (the write bit lines low: no leak into the '0's)
+    assert "(din_on && !refreshing) ? ~din : {COLS{1'b1}}" in ctrl and "~macro_dout" not in ctrl
     assert "-to [get_ports m_din*]" not in sdc
     loop = controller_params(dataclasses.replace(cfg, refresh_in_macro=False), FAST, banked)
     assert controller_params(cfg, FAST, banked).refresh_in_macro and not loop.refresh_in_macro
