@@ -16,6 +16,9 @@ let
     buildInputs = [pkgs.stdenv.cc.cc.lib];
     installPhase = "install -Dm755 openvaf $out/bin/openvaf";
   };
+  # LibreLane 3.0.17 (needs the flakes feature, and https://nix-cache.fossi-foundation.org as a
+  # substituter not to build it)
+  librelane = (builtins.getFlake "github:librelane/librelane/64ef80802d3d189b476636d2a6b17888c03304ee").packages.${builtins.currentSystem};
 in
 pkgs.mkShell {
   packages = with pkgs; [
@@ -26,14 +29,14 @@ pkgs.mkShell {
     ngspice
     magic-vlsi
     iverilog
-    # the refresh controller as hardware: LibreLane's RTL-to-GDS flow and the tools it drives.
-    # Only its executable: as a package it would put its own (3.13) Python modules on
-    # PYTHONPATH, where the project's 3.12 venv would import them.
-    (writeShellScriptBin "librelane" ''exec ${librelane}/bin/librelane "$@"'')
-    yosys
-    openroad
+    # the refresh controller as hardware: LibreLane's RTL-to-GDS flow, its own release build (the
+    # FOSSI cache has it; nixpkgs' would be built from source, OpenROAD for hours). Its wrapper
+    # carries the yosys, OpenROAD, Verilator, magic, netgen and KLayout it was tested with. Only its
+    # executable: as a package it would put its own (3.13) Python modules on PYTHONPATH, where the
+    # project's 3.12 venv would import them.
+    (writeShellScriptBin "librelane" ''exec ${librelane.librelane}/bin/librelane "$@"'')
+    librelane.opensta # the routed block's static timing (flow/sta.py)
     netgen-vlsi # LVS (nixpkgs' plain "netgen" is a mesher)
-    verilator # LibreLane's linter
   ];
 
   # Shared libraries required by the manylinux wheels (klayout, matplotlib, ...).

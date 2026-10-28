@@ -301,6 +301,14 @@ def write_liberty(
   nom_voltage : {vdd};
   nom_temperature : {temperature:g};
   nom_process : 1;
+  input_threshold_pct_rise : 50;
+  input_threshold_pct_fall : 50;
+  output_threshold_pct_rise : 50;
+  output_threshold_pct_fall : 50;
+  slew_lower_threshold_pct_rise : 20;
+  slew_lower_threshold_pct_fall : 20;
+  slew_upper_threshold_pct_rise : 80;
+  slew_upper_threshold_pct_fall : 80;
 {voltages}
   cell ({hard.name}) {{
     area : {hard.width * hard.height:.3f};

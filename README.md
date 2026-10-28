@@ -817,7 +817,8 @@ when `we` falls.
 `gc-compiler ... --controller` (or `GainCellCompiler.memory()`, `flow/memory.py`) builds the whole
 memory as one hard block, `<name>_top`: the decoded macro with its refresh controller synthesized,
 placed and routed under it by [LibreLane](https://github.com/librelane/librelane) (in the nix shell,
-from nixpkgs, with yosys, OpenROAD, magic, netgen and KLayout). What it takes:
+its own 3.0.17 release build from the FOSSI cache, with the yosys, OpenROAD, magic, netgen and KLayout
+it was tested with). What it takes:
 
 * **The macro as a hard macro** (`flow/abstract.py`). Its supplies are rails on metal1/metal2 under
   three layers of wiring, so `array/power.py` adds metal4 stripes and ties each down to its own
